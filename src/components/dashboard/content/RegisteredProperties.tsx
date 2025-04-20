@@ -78,6 +78,7 @@ const RegisteredProperties = () => {
                     width={32}
                     height={32}
                     alt={`${p.name} icon`}
+                    className="py-[0.5vw]"
                   />
 
                   <span>{p.name}</span>
@@ -86,7 +87,7 @@ const RegisteredProperties = () => {
                 <TableCell>{p.income}</TableCell>
                 <TableCell>{p.value}</TableCell>
                 <TableCell>
-                  <Badge className="text-[0.75vw]" variant={p.badgeVariant}>
+                  <Badge className="text-[0.75vw] py-[0.2vw]" variant={p.badgeVariant}>
                     {p.status}
                   </Badge>
                 </TableCell>
