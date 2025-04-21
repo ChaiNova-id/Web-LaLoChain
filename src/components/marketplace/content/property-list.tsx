@@ -8,36 +8,43 @@ const PropertyList = () => {
       location: "Miami, FL",
       yieldRate: "5.8%",
       image: "/images/PropertyPlaceholder.svg",
+      propertyName: "OYO Miami",
     },
     {
       location: "Miami, FL",
       yieldRate: "5.8%",
       image: "/images/PropertyPlaceholder.svg",
+      propertyName: "OYO Miami",
     },
     {
       location: "Miami, FL",
       yieldRate: "5.8%",
       image: "/images/PropertyPlaceholder.svg",
+      propertyName: "OYO Miami",
     },
     {
       location: "Miami, FL",
       yieldRate: "5.8%",
       image: "/images/PropertyPlaceholder.svg",
+      propertyName: "OYO Miami",
     },
     {
       location: "Miami, FL",
       yieldRate: "5.8%",
       image: "/images/PropertyPlaceholder.svg",
+      propertyName: "OYO Miami",
     },
     {
       location: "Miami, FL",
       yieldRate: "5.8%",
       image: "/images/PropertyPlaceholder.svg",
+      propertyName: "OYO Miami",
     },
     {
       location: "Miami, FL",
       yieldRate: "5.8%",
       image: "/images/PropertyPlaceholder.svg",
+      propertyName: "OYO Miami",
     },
   ];
 

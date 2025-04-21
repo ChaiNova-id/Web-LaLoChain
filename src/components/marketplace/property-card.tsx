@@ -11,12 +11,14 @@ export interface PropertyCardProps {
   location: string;
   yieldRate: string;
   image: string;
+  propertyName: string;
 }
 
 const PropertyCard = ({
   location,
   image,
   yieldRate,
+  propertyName,
 }: PropertyCardProps) => {
   return (
     <Card className="w-[15.625vw]">
@@ -33,7 +35,10 @@ const PropertyCard = ({
             alt="Property Image"
           />
         </div>
-        <p className="mt-[0.35vw] text-[1.1vw] text-neutral-500">
+        <h3 className="mt-[0.35vw] text-[1.24vw] font-medium text-neutral-800">
+          {propertyName}
+        </h3>
+        <p className="text-[1.1vw] text-neutral-500">
           Rental Yield <br />
           <span className="text-[1.3vw] text-neutral-800">{yieldRate}</span>
         </p>
