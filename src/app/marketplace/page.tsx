@@ -1,4 +1,5 @@
 import Header from "@/components/marketplace/content/header";
+import PropertyList from "@/components/marketplace/content/property-list";
 import Sidebar from "@/components/marketplace/sidebar";
 
 export default function MarketPlacePage() {
@@ -8,6 +9,8 @@ export default function MarketPlacePage() {
 
       <main className="flex-1 p-[3.252vw] overflow-auto">
         <Header /> 
+
+        <PropertyList />
       </main>
     </div>
   )
