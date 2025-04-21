@@ -39,7 +39,7 @@ const PropertyCard = ({
         </p>
       </CardContent>
       <CardFooter>
-        <Button variant="blue" className="w-full cursor-pointer">
+        <Button variant="blue" className="w-full  text-[1.1vw] cursor-pointer">
           Buy Token
         </Button>
       </CardFooter>
