@@ -24,7 +24,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${plusJakartaSans.variable}  antialiased`}>
         <Navbar navlink={["Home", "Marketplace", "Owners"]} />
-        <main className="w-full bg-neutral-50 px-36 py-5">{children}</main>
+        <main className="w-full h-screen bg-neutral-50 px-36 py-5">
+          {children}
+        </main>
       </body>
     </html>
   );

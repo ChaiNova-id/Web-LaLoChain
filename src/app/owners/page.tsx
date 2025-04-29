@@ -107,7 +107,7 @@ export default function PropertyDashboard() {
       />
 
       {/* Pagination + Row Count */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between cursor-default">
         {/* Row count */}
         <div className="text-sm text-zinc-500">
           {`${startIndex + 1}–${Math.min(
@@ -138,9 +138,9 @@ export default function PropertyDashboard() {
                 return (
                   <PaginationItem key={index}>
                     <button
-                      className={`h-9 w-9 rounded-md flex items-center justify-center ${
+                      className={`h-9 w-9 rounded-md flex items-center justify-center cursor-pointer ${
                         isCurrentPage
-                          ? "bg-primary text-primary-foreground"
+                          ? "border border-primary text-accent-foreground"
                           : "hover:bg-accent hover:text-accent-foreground"
                       }`}
                       onClick={() => {
