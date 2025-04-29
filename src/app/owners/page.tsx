@@ -40,55 +40,134 @@ export default function PropertyDashboard() {
       tokenizedValue: "$4,000",
       status: "Not Verified",
     },
-    // …more items…
+
+    {
+      id: "3",
+      name: "Sunset Apartment",
+      description: "Modern apartment with city view",
+      location: "Jakarta",
+      rentalIncome: "$500/month",
+      tokenizedValue: "$5,500",
+      status: "Verified",
+    },
+    {
+      id: "4",
+      name: "Ocean Breeze Cottage",
+      description: "Cozy cottage near the beach",
+      location: "Bali",
+      rentalIncome: "$600/month",
+      tokenizedValue: "$6,000",
+      status: "Not Verified",
+    },
+    {
+      id: "5",
+      name: "Mountain Retreat",
+      description: "Peaceful retreat in the mountains",
+      location: "Malang",
+      rentalIncome: "$450/month",
+      tokenizedValue: "$4,800",
+      status: "Verified",
+    },
+    {
+      id: "6",
+      name: "City Center Loft",
+      description: "Stylish loft in the heart of the city",
+      location: "Yogyakarta",
+      rentalIncome: "$550/month",
+      tokenizedValue: "$5,700",
+      status: "Not Verified",
+    },
   ];
 
-  const rowsPerPage = 10;
+  const pageSize = 3;
+  const totalRows = properties.length;
   const [startIndex, setStartIndex] = useState(0);
-  const [endIndex, setEndIndex] = useState(rowsPerPage);
+  const [endIndex, setEndIndex] = useState(pageSize);
 
   const canPrev = startIndex > 0;
-  const canNext = endIndex < properties.length;
+  const canNext = endIndex < totalRows;
 
   const handlePrev = () => {
     if (!canPrev) return;
-    setStartIndex((prev) => Math.max(0, prev - rowsPerPage));
-    setEndIndex((prev) => Math.max(rowsPerPage, prev - rowsPerPage));
+    setStartIndex((prev) => Math.max(0, prev - pageSize));
+    setEndIndex((prev) => Math.max(pageSize, prev - pageSize));
   };
 
   const handleNext = () => {
     if (!canNext) return;
-    setStartIndex((prev) => prev + rowsPerPage);
-    setEndIndex((prev) => Math.min(properties.length, prev + rowsPerPage));
+    setStartIndex((prev) => prev + pageSize);
+    setEndIndex((prev) => Math.min(totalRows, prev + pageSize));
   };
 
   return (
-    <>
+    <div className="space-y-8">
+      {/* Tabel */}
       <OwnerDashboardTable
         properties={properties.slice(startIndex, endIndex)}
       />
 
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              onClick={handlePrev}
-              className={
-                !canPrev ? "pointer-events-none opacity-50" : undefined
-              }
-            />
-          </PaginationItem>
+      {/* Pagination + Row Count */}
+      <div className="flex items-center justify-between">
+        {/* Row count */}
+        <div className="text-sm text-zinc-500">
+          {`${startIndex + 1}–${Math.min(
+            endIndex,
+            totalRows
+          )} of ${totalRows} row${totalRows !== 1 ? "s" : ""}`}
+        </div>
 
-          <PaginationItem>
-            <PaginationNext
-              onClick={handleNext}
-              className={
-                !canNext ? "pointer-events-none opacity-50" : undefined
+        {/* Pagination controls */}
+        <Pagination className="w-fit">
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={handlePrev}
+                className={
+                  !canPrev ? "pointer-events-none opacity-50" : undefined
+                }
+              />
+            </PaginationItem>
+
+            {/* Number pagination */}
+            {Array.from({ length: Math.ceil(totalRows / pageSize) }).map(
+              (_, index) => {
+                const pageNumber = index + 1;
+                const isCurrentPage =
+                  index === Math.floor(startIndex / pageSize);
+
+                return (
+                  <PaginationItem key={index}>
+                    <button
+                      className={`h-9 w-9 rounded-md flex items-center justify-center ${
+                        isCurrentPage
+                          ? "bg-primary text-primary-foreground"
+                          : "hover:bg-accent hover:text-accent-foreground"
+                      }`}
+                      onClick={() => {
+                        setStartIndex(index * pageSize);
+                        setEndIndex(
+                          Math.min((index + 1) * pageSize, totalRows)
+                        );
+                      }}
+                    >
+                      {pageNumber}
+                    </button>
+                  </PaginationItem>
+                );
               }
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
-    </>
+            )}
+
+            <PaginationItem>
+              <PaginationNext
+                onClick={handleNext}
+                className={
+                  !canNext ? "pointer-events-none opacity-50" : undefined
+                }
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      </div>
+    </div>
   );
 }
