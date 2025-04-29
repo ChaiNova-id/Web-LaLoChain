@@ -6,6 +6,8 @@ import { usePathname } from "next/navigation";
 
 import { Button } from "../ui/button";
 import ConnectWalletButton from "./connect-wallet-button";
+import { useWalletStore } from "@/stores/walletStore";
+import { Badge } from "../ui/badge";
 
 interface NavbarProps {
   navlink: string[];
@@ -13,6 +15,7 @@ interface NavbarProps {
 
 const Navbar = ({ navlink }: NavbarProps) => {
   const pathname = usePathname();
+  const { account } = useWalletStore();
 
   return (
     <div className="w-full h-20 px-36 py-5 bg-neutral-50 shadow-2 border-b-2 border-brand-100 inline-flex justify-between items-center gap-5 overflow-hidden">
@@ -39,6 +42,11 @@ const Navbar = ({ navlink }: NavbarProps) => {
             </Link>
           );
         })}
+        <Badge variant="outline" className="caption-3">
+          {account
+            ? account.slice(0, 5) + "..." + account.slice(-4)
+            : "Not connected"}
+        </Badge>
         <ConnectWalletButton />
       </div>
     </div>
