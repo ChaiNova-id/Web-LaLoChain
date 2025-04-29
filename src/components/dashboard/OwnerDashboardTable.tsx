@@ -6,6 +6,12 @@ import {
   TableHead,
   TableCell,
 } from "@/components/ui/table";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Info } from "lucide-react";
@@ -13,6 +19,7 @@ import { Info } from "lucide-react";
 type Property = {
   id: string;
   name: string;
+  description: string;
   location: string;
   rentalIncome: string;
   tokenizedValue: string;
@@ -24,6 +31,7 @@ export default function OwnerDashboardTable() {
     {
       id: "1",
       name: "G&B House",
+      description: "A beautiful house in Surakarta",
       location: "Surakarta",
       rentalIncome: "$300/month",
       tokenizedValue: "$3,200",
@@ -32,6 +40,7 @@ export default function OwnerDashboardTable() {
     {
       id: "2",
       name: "G&B House",
+      description: "A beautiful house in Surakarta",
       location: "Surakarta",
       rentalIncome: "$300/month",
       tokenizedValue: "$3,200",
@@ -48,7 +57,20 @@ export default function OwnerDashboardTable() {
       render: (p: Property) => (
         <>
           <span className="caption-3 text-neutral-950">{p.name}</span>
-          <Info className="w-4 h-4 text-neutral-500" />
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="cursor-help">
+                  <Info className="w-4 h-4 text-neutral-500" />
+                </span>
+              </TooltipTrigger>
+              <TooltipContent className="p-2">
+                <p className="caption-3">
+                  {p.description || "Property description not available"}
+                </p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </>
       ),
     },
