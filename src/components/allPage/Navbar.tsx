@@ -14,7 +14,7 @@ const Navbar = ({ navlink }: NavbarProps) => {
   const pathname = usePathname();
 
   return (
-    <div className="w-[1920px] h-20 px-36 py-5 bg-neutral-50 shadow-2 border-b-2 border-brand-100 inline-flex justify-between items-center gap-5 overflow-hidden">
+    <div className="w-full h-20 px-36 py-5 bg-neutral-50 shadow-2 border-b-2 border-brand-100 inline-flex justify-between items-center gap-5 overflow-hidden">
       <div className="flex flex-row justify-center items-center gap-5 cursor-default">
         <Image src="/images/Logo.svg" alt="Logo" width={40} height={40} />
         <div className="flex-1 justify-start text-black heading-6">
