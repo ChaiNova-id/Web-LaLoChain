@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { Button } from "../ui/button";
+import ConnectWalletButton from "./connect-wallet-button";
 
 interface NavbarProps {
   navlink: string[];
@@ -38,12 +39,7 @@ const Navbar = ({ navlink }: NavbarProps) => {
             </Link>
           );
         })}
-        <Button
-          variant="primaryBrand"
-          className="w-40 p-6 text-neutral-50 heading-9 cursor-pointer"
-        >
-          Connect
-        </Button>
+        <ConnectWalletButton />
       </div>
     </div>
   );
