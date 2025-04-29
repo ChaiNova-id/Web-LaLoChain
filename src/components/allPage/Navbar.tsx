@@ -1,6 +1,8 @@
 // TODO: add brand text style each navlink when routing different routes
 
 import Image from "next/image";
+import Link from "next/link";
+
 import { Button } from "../ui/button";
 
 interface NavbarProps {
@@ -18,12 +20,13 @@ const Navbar = ({ navlink }: NavbarProps) => {
       </div>
       <div className="bg-neutral-50 flex justify-center items-center gap-10">
         {navlink.map((link, index) => (
-          <div
+          <Link
             key={index}
+            href={link === "Home" ? "/" : `/${link.toLowerCase()}`}
             className="justify-start text-neutral-950 hover:text-brand-500 heading-9 cursor-pointer"
           >
             {link}
-          </div>
+          </Link>
         ))}
         <Button
           variant="primaryBrand"
