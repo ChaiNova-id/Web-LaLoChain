@@ -115,7 +115,12 @@ export default function OwnerDashboardTable({
       <TableHeader className="bg-neutral-100">
         <TableRow>
           {columns.map((col) => (
-            <TableHead key={col.key} className="body-3 text-center">
+            <TableHead
+              key={col.key}
+              className={`${
+                col.label === "Property" ? "text-left" : "text-center"
+              } body-3`}
+            >
               {col.label}
             </TableHead>
           ))}
