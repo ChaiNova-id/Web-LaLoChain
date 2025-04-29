@@ -26,29 +26,11 @@ type Property = {
   status: "Verified" | "Not Verified";
 };
 
-export default function OwnerDashboardTable() {
-  const properties: Property[] = [
-    {
-      id: "1",
-      name: "G&B House",
-      description: "A beautiful house in Surakarta",
-      location: "Surakarta",
-      rentalIncome: "$300/month",
-      tokenizedValue: "$3,200",
-      status: "Verified",
-    },
-    {
-      id: "2",
-      name: "G&B House",
-      description: "A beautiful house in Surakarta",
-      location: "Surakarta",
-      rentalIncome: "$300/month",
-      tokenizedValue: "$3,200",
-      status: "Not Verified",
-    },
-  ];
-
-  // definisikan kolom sekali saja
+export default function OwnerDashboardTable({
+  properties,
+}: {
+  properties?: Property[];
+}) {
   const columns = [
     {
       key: "name",
@@ -117,7 +99,7 @@ export default function OwnerDashboardTable() {
       key: "action",
       label: "Action",
       className: "flex justify-center gap-2",
-      render: (_: Property) => (
+      render: () => (
         <>
           <Button
             size="sm"
@@ -149,7 +131,7 @@ export default function OwnerDashboardTable() {
       </TableHeader>
 
       <TableBody>
-        {properties.map((p) => (
+        {properties?.map((p) => (
           <TableRow key={p.id} className="hover:bg-neutral-50">
             {columns.map((col) => (
               <TableCell key={col.key} className={col.className}>
@@ -157,7 +139,13 @@ export default function OwnerDashboardTable() {
               </TableCell>
             ))}
           </TableRow>
-        ))}
+        )) || (
+          <TableRow>
+            <TableCell colSpan={columns.length} className="text-center">
+              No properties found
+            </TableCell>
+          </TableRow>
+        )}
       </TableBody>
     </Table>
   );
