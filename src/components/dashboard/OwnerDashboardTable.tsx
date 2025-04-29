@@ -16,15 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Info } from "lucide-react";
 
-type Property = {
-  id: string;
-  name: string;
-  description: string;
-  location: string;
-  rentalIncome: string;
-  tokenizedValue: string;
-  status: "Verified" | "Not Verified";
-};
+import { Property } from "@/types/propertyDashboardTypes";
 
 export default function OwnerDashboardTable({
   properties,

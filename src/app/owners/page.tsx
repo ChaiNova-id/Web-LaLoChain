@@ -10,15 +10,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-type Property = {
-  id: string;
-  name: string;
-  description: string;
-  location: string;
-  rentalIncome: string;
-  tokenizedValue: string;
-  status: "Verified" | "Not Verified";
-};
+import { Property } from "@/types/propertyDashboardTypes";
 
 export default function PropertyDashboard() {
   const properties: Property[] = [
