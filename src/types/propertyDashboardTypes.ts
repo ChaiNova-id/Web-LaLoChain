@@ -3,7 +3,8 @@ export type Property = {
     name: string;
     description: string;
     location: string;
-    rentalIncome: string;
-    tokenizedValue: string;
+    rate: string;
+    availableTokens: string;
+    remainingDebt: string;
     status: "Verified" | "Not Verified";
   };

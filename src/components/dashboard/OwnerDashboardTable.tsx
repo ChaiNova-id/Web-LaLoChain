@@ -57,19 +57,27 @@ export default function OwnerDashboardTable({
       ),
     },
     {
-      key: "rentalIncome",
-      label: "Rental Income",
+      key: "rate",
+      label: "Rate",
       className: "text-center",
       render: (p: Property) => (
-        <span className="caption-3 text-neutral-950">{p.rentalIncome}</span>
+        <span className="caption-3 text-neutral-950">{p.rate}</span>
       ),
     },
     {
-      key: "tokenizedValue",
-      label: "Tokenized",
+      key: "availableTokens",
+      label: "Available Tokens",
       className: "text-center",
       render: (p: Property) => (
-        <span className="caption-3 text-neutral-950">{p.tokenizedValue}</span>
+        <span className="caption-3 text-neutral-950">{p.availableTokens}</span>
+      ),
+    },
+    {
+      key: "remainingDebt",
+      label: "Remaining Debt",
+      className: "text-center",
+      render: (p: Property) => (
+        <span className="caption-3 text-neutral-950">{p.remainingDebt}</span>
       ),
     },
     {
@@ -97,13 +105,7 @@ export default function OwnerDashboardTable({
             size="sm"
             className="text-neutral-50 bg-warning-600 hover:bg-warning-500 caption-3 px-2 cursor-pointer"
           >
-            Edit
-          </Button>
-          <Button
-            size="sm"
-            className="text-neutral-50 bg-error-600 hover:bg-error-500 caption-3 px-2 cursor-pointer"
-          >
-            Delete
+            Deposit
           </Button>
         </>
       ),
