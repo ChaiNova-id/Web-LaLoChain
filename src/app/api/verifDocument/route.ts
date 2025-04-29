@@ -6,12 +6,6 @@ import formidable from 'formidable';
 import { extractRevenueFromDocument } from '@/lib/openai';
 // import fs from 'fs';
 
-export const config = {
-    api: {
-        bodyParser: false, // Disallow body parsing so formidable can handle it
-    },
-};
-
 export async function POST(req: NextApiRequest) {
     try {
         const form = formidable({ multiples: false });
@@ -29,7 +23,6 @@ export async function POST(req: NextApiRequest) {
                 return NextResponse.json({ message: 'No file uploaded' }, { status: 400 });
             }
 
-            // Example: Log file info
             console.log('Uploaded file:', uploadedFile.originalFilename);
 
             file = uploadedFile;
