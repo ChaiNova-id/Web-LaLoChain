@@ -39,14 +39,9 @@ import { Button } from "@/components/ui/button";
  * ```
  */
 
-type AddPropertyFormProps = {
-  onClose: () => void;
-  onSubmit: () => void;
-  children: React.ReactNode;
-  addModalDescription?: string;
-};
+import { AddPropertyFormProps } from "@/types/modalTypes";
 
-export function AddPropertyForm({
+export function ModalWrapper({
   onClose,
   onSubmit,
   children,
