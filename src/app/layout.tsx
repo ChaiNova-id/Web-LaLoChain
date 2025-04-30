@@ -3,6 +3,8 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
 import Navbar from "@/components/allPage/Navbar";
+import Footer from "@/components/allPage/Footer";
+
 import { Toaster } from "react-hot-toast";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -25,10 +27,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${plusJakartaSans.variable}  antialiased`}>
         <Toaster position="top-center" reverseOrder={false} />
-        <Navbar navlink={["Home", "Marketplace", "Owners", "Investor"]} />
-        <main className="w-full h-screen bg-neutral-50 px-36 py-5">
+        <Navbar navlink={["Home", "Marketplace", "Owners", "Investors"]} />
+        <main className="w-full h-fit bg-neutral-50 px-36 py-5">
           {children}
         </main>
+        <Footer />
       </body>
     </html>
   );
