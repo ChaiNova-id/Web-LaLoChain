@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${plusJakartaSans.variable}  antialiased`}>
         <Toaster position="top-center" reverseOrder={false} />
-        <Navbar navlink={["Home", "Marketplace", "Owners"]} />
+        <Navbar navlink={["Home", "Marketplace", "Owners", "Investor"]} />
         <main className="w-full h-screen bg-neutral-50 px-36 py-5">
           {children}
         </main>
