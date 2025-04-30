@@ -20,24 +20,24 @@ const HotelCard = ({
   tokenValue,
 }: HotelCardProps) => {
   return (
-    <div className="w-[15.625vw] aspect-[350/454] bg-neutral-50 flex flex-col justify-between rounded-[1.25vw] border-1">
-      <div className="w-full h-[67%] bg-red-300 relative">
-        <Image src={"/images/testing.png"} alt="property" fill />
+    <div className="w-[15.625vw] aspect-[350/454] bg-neutral-50 flex flex-col justify-between rounded-[.4vw] border-1 overflow-hidden">
+      <div className="w-full h-[67%] relative">
+        <Image src={image} alt="property" fill/>
       </div>
       <div className="w-full h-[33%] p-[14px] flex flex-col justify-between">
         <div className="w-full h-fit">
           <span className="heading-7 text-brand-700">
-            Green Valley Townhomes
+            {propertyName}
           </span>
           <div className="flex justify-start items-center gap-x-1">
             <MapPin size={20} className="text-neutral-700" />
-            <span className="caption-4">Location</span>
+            <span className="caption-4">{location}</span>
           </div>
         </div>
         <div className="w-full h-fit flex justify-between items-center">
-          <div className="flex justify-start items-center gap-x-1 heading-9 text-black">
-            <span>4000 LLoT</span>
-            <span>10x Rate</span>
+          <div className="flex justify-start items-center gap-x-2 heading-9 text-black">
+            <span>{tokenValue} LLoT</span>
+            <span>{yieldRate}x Rate</span>
           </div>
           <Button
             variant="primaryBrand"
