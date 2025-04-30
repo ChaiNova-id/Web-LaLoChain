@@ -3,9 +3,9 @@ export type PropertyOwner = {
   name: string;
   description: string;
   location: string;
-  rate: string;
-  availableTokens: string;
-  remainingDebt: string;
+  rate: number;
+  availableTokens: number;
+  remainingDebt: number;
   status: "Verified" | "Not Verified";
 };
 
@@ -14,8 +14,8 @@ export type PropertyInvestor = {
   name: string;
   description: string;
   location: string;
-  tokensOwn: string;
-  withdrawLimit: string;
-  withdrawn: string;
+  tokensOwn: number;
+  withdrawLimit: number;
+  withdrawn: number;
   status: "Verified" | "Not Verified";
 };

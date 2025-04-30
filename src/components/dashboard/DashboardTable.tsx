@@ -65,9 +65,9 @@ export default function DashboardTable({
       render: (p: PropertyOwner | PropertyInvestor) => (
         <span className="caption-3 text-neutral-950">
           {type === "owner" && "rate" in p
-            ? p.rate
+            ? p.rate + " %"
             : "tokensOwn" in p
-            ? p.tokensOwn
+            ? p.tokensOwn + " LLoT"
             : null}
         </span>
       ),
@@ -79,9 +79,9 @@ export default function DashboardTable({
       render: (p: PropertyOwner | PropertyInvestor) => (
         <span className="caption-3 text-neutral-950">
           {type === "owner" && "availableTokens" in p
-            ? p.availableTokens
+            ? p.availableTokens + " LLoT"
             : "withdrawLimit" in p
-            ? p.withdrawLimit
+            ? p.withdrawLimit + " USDC"
             : null}
         </span>
       ),
@@ -93,9 +93,9 @@ export default function DashboardTable({
       render: (p: PropertyOwner | PropertyInvestor) => (
         <span className="caption-3 text-neutral-950">
           {type === "owner" && "remainingDebt" in p
-            ? p.remainingDebt
+            ? p.remainingDebt + " USDC"
             : "withdrawn" in p
-            ? p.withdrawn
+            ? p.withdrawn + " USDC"
             : null}
         </span>
       ),
