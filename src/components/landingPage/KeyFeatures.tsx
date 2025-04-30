@@ -29,7 +29,7 @@ const features = [
 
 const KeyFeatures = () => {
   return (
-    <div className="space-y-16">
+    <div className="space-y-16 py-16">
       {/* Heading */}
       <div className="flex items-center justify-between">
         <div className="space-y-2 flex-1">
