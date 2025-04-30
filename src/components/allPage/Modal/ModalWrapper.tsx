@@ -10,6 +10,8 @@ import {
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 
+import { useModalStore } from "@/stores/modalStore";
+
 /**
  * A form component for adding properties with a consistent layout and styling.
  * Includes a header with an optional description and standardized cancel/confirm buttons.
@@ -43,19 +45,19 @@ import { AddPropertyFormProps } from "@/types/modalTypes";
 
 const ModalWrapper = ({
   form,
-  onClose,
   onSubmit,
   children,
   addModalTitle,
   addModalDescription,
 }: AddPropertyFormProps) => {
+  const closeModal = useModalStore((state) => state.closeModal);
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/20 z-50">
       <Card className="w-fit p-6 bg-neutral-100 rounded-lg shadow-md outline-1 outline-neutral-400">
         <CardHeader className="flex justify-between items-start">
           <div>
             <CardTitle className="heading-7 text-green-600 ">
-             {addModalTitle}
+              {addModalTitle}
             </CardTitle>
             {addModalDescription && (
               <CardDescription className="mt-[6px] body-3">
@@ -65,7 +67,7 @@ const ModalWrapper = ({
           </div>
 
           <X
-            onClick={onClose}
+            onClick={closeModal}
             className="hover:bg-neutral-100 w-[28px] h-[28px] text-neutral-500 cursor-pointer p-[4px] rounded-lg"
           />
         </CardHeader>
@@ -79,7 +81,7 @@ const ModalWrapper = ({
             <div className="flex justify-center space-x-4">
               <Button
                 variant="destructive"
-                onClick={onClose}
+                onClick={closeModal}
                 className="bg-error-600 hover:bg-error-700 body-2 px-[50px] py-[25px] cursor-pointer"
               >
                 Cancel

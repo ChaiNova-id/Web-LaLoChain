@@ -13,9 +13,7 @@ import ModalWrapper from "./ModalWrapper";
 
 const ModalAddProperty = () => {
   const form = useForm();
-  const handleClose = () => {
-    //    Close Modal Logic
-  };
+
   const handleSubmit = () => {
     console.log("Submitted:");
     // Send data to smart contract API
@@ -23,7 +21,6 @@ const ModalAddProperty = () => {
   return (
     <ModalWrapper
       form={form}
-      onClose={() => handleClose()}
       onSubmit={() => handleSubmit()}
       addModalTitle="Add Property"
       addModalDescription="Fill out your property detail here. Click submit when you're done."

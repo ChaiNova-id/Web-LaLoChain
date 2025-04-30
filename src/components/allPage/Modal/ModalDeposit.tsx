@@ -12,9 +12,6 @@ import ModalWrapper from "./ModalWrapper";
 
 const ModalDeposit = () => {
   const form = useForm();
-  const handleClose = () => {
-    //    Close Modal Logic
-  };
   const handleSubmit = () => {
     console.log("Submitted:");
     // Send data to smart contract API
@@ -22,7 +19,6 @@ const ModalDeposit = () => {
   return (
     <ModalWrapper
       form={form}
-      onClose={() => handleClose()}
       onSubmit={() => handleSubmit()}
       addModalTitle="Deposit Revenue"
     >
