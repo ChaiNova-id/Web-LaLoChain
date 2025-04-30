@@ -16,19 +16,21 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Info } from "lucide-react";
 
-import { Property } from "@/types/propertyDashboardTypes";
+import { PropertyOwner, PropertyInvestor } from "@/types/dashboardTypes";
 
-export default function OwnerDashboardTable({
+export default function DashboardTable({
   properties,
+  type,
 }: {
-  properties?: Property[];
+  properties?: PropertyOwner[] | PropertyInvestor[];
+  type: "owner" | "investor";
 }) {
   const columns = [
     {
       key: "name",
       label: "Property",
       className: "flex items-center gap-2",
-      render: (p: Property) => (
+      render: (p: PropertyOwner | PropertyInvestor) => (
         <>
           <span className="caption-3 text-neutral-950">{p.name}</span>
           <TooltipProvider>
@@ -52,39 +54,57 @@ export default function OwnerDashboardTable({
       key: "location",
       label: "Location",
       className: "text-center",
-      render: (p: Property) => (
+      render: (p: PropertyOwner | PropertyInvestor) => (
         <span className="caption-3 text-neutral-950">{p.location}</span>
       ),
     },
     {
-      key: "rate",
-      label: "Rate",
+      key: `${type === "owner" ? "rate" : "tokensOwn"}`,
+      label: `${type === "owner" ? "Rate" : "Tokens Own"}`,
       className: "text-center",
-      render: (p: Property) => (
-        <span className="caption-3 text-neutral-950">{p.rate}</span>
+      render: (p: PropertyOwner | PropertyInvestor) => (
+        <span className="caption-3 text-neutral-950">
+          {type === "owner" && "rate" in p
+            ? p.rate + " %"
+            : "tokensOwn" in p
+            ? p.tokensOwn + " LLoT"
+            : null}
+        </span>
       ),
     },
     {
-      key: "availableTokens",
-      label: "Available Tokens",
+      key: `${type === "owner" ? "availableTokens" : "withdrawLimit"}`,
+      label: `${type === "owner" ? "Available Tokens" : "Withdraw Limit"}`,
       className: "text-center",
-      render: (p: Property) => (
-        <span className="caption-3 text-neutral-950">{p.availableTokens}</span>
+      render: (p: PropertyOwner | PropertyInvestor) => (
+        <span className="caption-3 text-neutral-950">
+          {type === "owner" && "availableTokens" in p
+            ? p.availableTokens + " LLoT"
+            : "withdrawLimit" in p
+            ? p.withdrawLimit + " USDC"
+            : null}
+        </span>
       ),
     },
     {
-      key: "remainingDebt",
-      label: "Remaining Debt",
+      key: `${type === "owner" ? "remainingDebt" : "withdrawn"}`,
+      label: `${type === "owner" ? "Remaining Debt" : "Withdrawn"}`,
       className: "text-center",
-      render: (p: Property) => (
-        <span className="caption-3 text-neutral-950">{p.remainingDebt}</span>
+      render: (p: PropertyOwner | PropertyInvestor) => (
+        <span className="caption-3 text-neutral-950">
+          {type === "owner" && "remainingDebt" in p
+            ? p.remainingDebt + " USDC"
+            : "withdrawn" in p
+            ? p.withdrawn + " USDC"
+            : null}
+        </span>
       ),
     },
     {
       key: "status",
       label: "Status",
       className: "text-center",
-      render: (p: Property) => (
+      render: (p: PropertyOwner | PropertyInvestor) => (
         <Badge
           variant={p.status === "Verified" ? "default" : "destructive"}
           className={`${
@@ -103,9 +123,13 @@ export default function OwnerDashboardTable({
         <>
           <Button
             size="sm"
-            className="text-neutral-50 bg-warning-600 hover:bg-warning-500 caption-3 px-2 cursor-pointer"
+            className={`${
+              type === "owner"
+                ? "bg-warning-600 hover:bg-warning-500"
+                : "bg-success-600 hover:bg-success-500"
+            } text-neutral-50  caption-3 px-2 cursor-pointer`}
           >
-            Deposit
+            {type === "owner" ? "Deposit" : "Withdraw"}
           </Button>
         </>
       ),

@@ -1,14 +1,14 @@
-import { Property } from "@/types/propertyDashboardTypes";
+import { PropertyOwner } from "@/types/dashboardTypes";
 
-export const properties: Property[] = [
+export const ownerProperties: PropertyOwner[] = [
   {
     id: "1",
     name: "G&B House",
     description: "A beautiful house in Surakarta",
     location: "Surakarta",
-    rate: "4 %",
-    availableTokens: "100 LLoT",
-    remainingDebt: "100 USDC",
+    rate: 4,
+    availableTokens: 100,
+    remainingDebt: 100,
     status: "Verified",
   },
   {
@@ -16,9 +16,9 @@ export const properties: Property[] = [
     name: "Lotus Villa",
     description: "Cozy villa with garden view",
     location: "Bandung",
-    rate: "4 %",
-    availableTokens: "100 LLoT",
-    remainingDebt: "100 USDC",
+    rate: 4,
+    availableTokens: 100,
+    remainingDebt: 100,
     status: "Not Verified",
   },
 
@@ -27,9 +27,9 @@ export const properties: Property[] = [
     name: "Sunset Apartment",
     description: "Modern apartment with city view",
     location: "Jakarta",
-    rate: "4 %",
-    availableTokens: "100 LLoT",
-    remainingDebt: "100 USDC",
+    rate: 4,
+    availableTokens: 100,
+    remainingDebt: 100,
     status: "Verified",
   },
   {
@@ -37,9 +37,9 @@ export const properties: Property[] = [
     name: "Ocean Breeze Cottage",
     description: "Cozy cottage near the beach",
     location: "Bali",
-    rate: "4 %",
-    availableTokens: "100 LLoT",
-    remainingDebt: "100 USDC",
+    rate: 4,
+    availableTokens: 100,
+    remainingDebt: 100,
     status: "Not Verified",
   },
   {
@@ -47,9 +47,9 @@ export const properties: Property[] = [
     name: "Mountain Retreat",
     description: "Peaceful retreat in the mountains",
     location: "Malang",
-    rate: "4 %",
-    availableTokens: "100 LLoT",
-    remainingDebt: "100 USDC",
+    rate: 4,
+    availableTokens: 100,
+    remainingDebt: 100,
     status: "Verified",
   },
   {
@@ -57,9 +57,9 @@ export const properties: Property[] = [
     name: "City Center Loft",
     description: "Stylish loft in the heart of the city",
     location: "Yogyakarta",
-    rate: "4 %",
-    availableTokens: "100 LLoT",
-    remainingDebt: "100 USDC",
+    rate: 4,
+    availableTokens: 100,
+    remainingDebt: 100,
     status: "Not Verified",
   },
 ];
