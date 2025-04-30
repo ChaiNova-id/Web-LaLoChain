@@ -1,18 +1,16 @@
 // lib/openai.ts
 
-import fs from "fs";
+// import fs from "fs";
 import OpenAI from "openai";
-import formidable from "formidable";
+// import formidable from "formidable";
 
 const apiKey = process.env.OPENAI_API_KEY;
 const openai = new OpenAI({ apiKey: apiKey });
 
 export async function extractRevenueFromDocument(data: unknown)  {
-    const file = data as formidable.File;
-    const fileData = fs.createReadStream(file.filepath);
-
+    const file = data as File;
     const uploadedFile = await openai.files.create({
-        file: fileData,
+        file: file,
         purpose: "user_data",
     });
 
