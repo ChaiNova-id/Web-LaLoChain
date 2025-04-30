@@ -1,6 +1,5 @@
 "use client";
 
-import { useForm } from "react-hook-form";
 import { X } from "lucide-react";
 import {
   Card,
@@ -17,6 +16,7 @@ import { Button } from "@/components/ui/button";
  *
  * @component
  * @param {object} props - Component props
+ * @param {object} props.form - React Hook Form instance for managing form state
  * @param {Function} props.onClose - Handler called when the user clicks the close (X) button or the Cancel button
  * @param {Function} props.onSubmit - Form submission handler that receives the form values
  * @param {React.ReactNode} props.children - Form input components to be rendered in the body of the form
@@ -41,14 +41,13 @@ import { Button } from "@/components/ui/button";
 
 import { AddPropertyFormProps } from "@/types/modalTypes";
 
-export function ModalWrapper({
+const ModalWrapper = ({
+  form,
   onClose,
   onSubmit,
   children,
   addModalDescription,
-}: AddPropertyFormProps) {
-  const form = useForm();
-
+}: AddPropertyFormProps) => {
   return (
     <Card className="w-fit p-6 bg-neutral-50 rounded-lg shadow-md outline-1 outline-neutral-400">
       <CardHeader className="flex justify-between items-start mb-4">
@@ -95,4 +94,6 @@ export function ModalWrapper({
       </Form>
     </Card>
   );
-}
+};
+
+export default ModalWrapper;
