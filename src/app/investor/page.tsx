@@ -2,7 +2,7 @@
 
 import OwnerDashboardTable from "@/components/dashboard/OwnerDashboardTable";
 import PropertyTablePagination from "@/components/dashboard/PropertyTablePagination";
-import TitlePropertyDashboard from "@/components/dashboard/TitlePropertyDashboard";
+import TitleDashboard from "@/components/dashboard/TitleDashboard";
 import SearchBar from "@/components/allPage/SearchBar";
 
 import { properties } from "@/dummy/ownerPropertyData";
@@ -19,7 +19,7 @@ export default function InvestorDashboard() {
   return (
     <div className="space-y-8">
       {/* Title */}
-      <TitlePropertyDashboard />
+      <TitleDashboard title="Investor Dashboard" />
       {/* Search Bar */}
       <SearchBar />
       {/* Tabel */}
