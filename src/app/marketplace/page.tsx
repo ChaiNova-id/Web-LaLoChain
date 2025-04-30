@@ -1,8 +1,9 @@
 import FilterRow from "@/components/marketplace/filter-row";
+import SearchBar from "@/components/allPage/SearchBar";
 
 export default function MarketPlacePage() {
   return (
-    <div className="flex flex-col items-center justify-start w-full min-h-screen bg-neutral-50 px-20 py-10">
+    <div className="flex flex-col items-center justify-start w-full min-h-screen gap-y-5 bg-neutral-50 px-20 py-10">
       <div className="flex flex-col items-center gap-y-4">
         <span className="heading-2 text-brand-500">Marketplace</span>
         <p className="body-1 text-neutral-500 text-center">
@@ -12,6 +13,7 @@ export default function MarketPlacePage() {
           iure voluptatibus architecto corporis voluptatum?
         </p>
       </div>
+      <SearchBar />
       <FilterRow />
     </div>
   );
