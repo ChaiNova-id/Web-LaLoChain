@@ -16,7 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Info } from "lucide-react";
 
-import { Property } from "@/types/propertyDashboardTypes";
+import { Property } from "@/types/dashboardTypes";
 
 export default function OwnerDashboardTable({
   properties,

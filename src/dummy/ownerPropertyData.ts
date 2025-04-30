@@ -1,6 +1,6 @@
-import { Property } from "@/types/propertyDashboardTypes";
+import { PropertyOwner } from "@/types/dashboardTypes";
 
-export const properties: Property[] = [
+export const properties: PropertyOwner[] = [
   {
     id: "1",
     name: "G&B House",
