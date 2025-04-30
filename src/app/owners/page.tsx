@@ -3,6 +3,7 @@
 import OwnerDashboardTable from "@/components/dashboard/OwnerDashboardTable";
 import PropertyTablePagination from "@/components/dashboard/PropertyTablePagination";
 import TitlePropertyDashboard from "@/components/dashboard/TitlePropertyDashboard";
+import SearchBar from "@/components/allPage/SearchBar";
 
 import { properties } from "@/dummy/ownerPropertyData";
 
@@ -19,6 +20,8 @@ export default function PropertyDashboard() {
     <div className="space-y-8">
       {/* Title */}
       <TitlePropertyDashboard />
+      {/* Search Bar */}
+      <SearchBar />
       {/* Tabel */}
       <OwnerDashboardTable
         properties={properties.slice(startIndex, endIndex)}
