@@ -1,17 +1,9 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import Hero from "@/components/landingPage/Hero";
 
 export default function Home() {
   return (
-    <main className="flex justify-center items-center h-full">
-      <div className="flex flex-row space-x-2">
-        <Button variant="outlineBrand" asChild>
-          <Link href="/marketplace">Marketplace</Link>
-        </Button>
-        <Button variant="primaryBrand" asChild>
-          <Link href="/dashboard">Dashboard</Link>
-        </Button>
-      </div>
-    </main>
+    <>
+      <Hero />
+    </>
   );
 }
