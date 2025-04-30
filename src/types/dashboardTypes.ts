@@ -14,7 +14,7 @@ export type PropertyInvestor = {
   name: string;
   description: string;
   location: string;
-  tokenOwn: string;
+  tokensOwn: string;
   withdrawLimit: string;
   withdrawn: string;
   status: "Verified" | "Not Verified";

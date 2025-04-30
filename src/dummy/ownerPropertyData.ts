@@ -1,6 +1,6 @@
 import { PropertyOwner } from "@/types/dashboardTypes";
 
-export const properties: PropertyOwner[] = [
+export const ownerProperties: PropertyOwner[] = [
   {
     id: "1",
     name: "G&B House",

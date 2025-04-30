@@ -1,17 +1,17 @@
 "use client";
 
-import OwnerDashboardTable from "@/components/dashboard/OwnerDashboardTable";
+import OwnerDashboardTable from "@/components/dashboard/DashboardTable";
 import PropertyTablePagination from "@/components/dashboard/PropertyTablePagination";
 import TitleDashboard from "@/components/dashboard/TitleDashboard";
 import SearchBar from "@/components/allPage/SearchBar";
 
-import { properties } from "@/dummy/ownerPropertyData";
+import { investorProperties } from "@/dummy/investorPropertyData";
 
 import { useState } from "react";
 
 export default function InvestorDashboard() {
   const pageSize = 3;
-  const totalRows = properties.length;
+  const totalRows = investorProperties.length;
 
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(pageSize);
@@ -24,7 +24,8 @@ export default function InvestorDashboard() {
       <SearchBar />
       {/* Tabel */}
       <OwnerDashboardTable
-        properties={properties.slice(startIndex, endIndex)}
+        type="investor"
+        properties={investorProperties.slice(startIndex, endIndex)}
       />
 
       {/* Pagination + Row Count */}
