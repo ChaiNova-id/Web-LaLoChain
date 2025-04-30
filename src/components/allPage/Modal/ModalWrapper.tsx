@@ -49,50 +49,52 @@ const ModalWrapper = ({
   addModalDescription,
 }: AddPropertyFormProps) => {
   return (
-    <Card className="w-fit p-6 bg-neutral-50 rounded-lg shadow-md outline-1 outline-neutral-400">
-      <CardHeader className="flex justify-between items-start mb-4">
-        <div>
-          <CardTitle className="heading-7 text-green-600 ">
-            Add Property
-          </CardTitle>
-          {addModalDescription && (
-            <CardDescription className="mt-[6px] body-3">
-              {addModalDescription}
-            </CardDescription>
-          )}
-        </div>
-
-        <X
-          onClick={onClose}
-          className="hover:bg-neutral-100 w-[28px] h-[28px] text-neutral-500 cursor-pointer p-[4px] rounded-lg"
-        />
-      </CardHeader>
-
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          {/* Dynamic Input Component */}
-          {children}
-
-          {/* Actions */}
-          <div className="flex justify-center space-x-4">
-            <Button
-              variant="destructive"
-              onClick={onClose}
-              className="bg-error-600 hover:bg-error-700 body-2 px-[50px] py-[25px] cursor-pointer"
-            >
-              Cancel
-            </Button>
-            <Button
-              type="submit"
-              variant="default"
-              className="bg-success-600 hover:bg-success-700 body-2 px-[50px] py-[25px] cursor-pointer"
-            >
-              Confirm
-            </Button>
+    <div className="fixed inset-0 flex items-center justify-center bg-black/20 z-50">
+      <Card className="w-fit p-6 bg-neutral-100 rounded-lg shadow-md outline-1 outline-neutral-400">
+        <CardHeader className="flex justify-between items-start mb-4">
+          <div>
+            <CardTitle className="heading-7 text-green-600 ">
+              Add Property
+            </CardTitle>
+            {addModalDescription && (
+              <CardDescription className="mt-[6px] body-3">
+                {addModalDescription}
+              </CardDescription>
+            )}
           </div>
-        </form>
-      </Form>
-    </Card>
+
+          <X
+            onClick={onClose}
+            className="hover:bg-neutral-100 w-[28px] h-[28px] text-neutral-500 cursor-pointer p-[4px] rounded-lg"
+          />
+        </CardHeader>
+
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            {/* Dynamic Input Component */}
+            {children}
+
+            {/* Actions */}
+            <div className="flex justify-center space-x-4">
+              <Button
+                variant="destructive"
+                onClick={onClose}
+                className="bg-error-600 hover:bg-error-700 body-2 px-[50px] py-[25px] cursor-pointer"
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                variant="default"
+                className="bg-success-600 hover:bg-success-700 body-2 px-[50px] py-[25px] cursor-pointer"
+              >
+                Confirm
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </Card>
+    </div>
   );
 };
 
