@@ -25,12 +25,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${plusJakartaSans.variable}  antialiased`}>
+      <body
+        className={`${plusJakartaSans.variable}  antialiased bg-neutral-50 overflow-x-hidden`}
+      >
         <Toaster position="top-center" reverseOrder={false} />
         <Navbar navlink={["Home", "Marketplace", "Owners", "Investors"]} />
-        <main className="w-full h-fit bg-neutral-50 px-36 py-5">
-          {children}
-        </main>
+        <main className="w-full h-fit px-36 py-5">{children}</main>
         <Footer />
       </body>
     </html>
