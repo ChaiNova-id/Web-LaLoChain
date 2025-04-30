@@ -25,6 +25,7 @@ const ModalAddProperty = () => {
       form={form}
       onClose={() => handleClose()}
       onSubmit={() => handleSubmit()}
+      addModalTitle="Add Property"
       addModalDescription="Fill out your property detail here. Click submit when you're done."
     >
       {/* Name */}

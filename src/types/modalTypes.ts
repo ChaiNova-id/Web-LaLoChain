@@ -6,5 +6,6 @@ export type AddPropertyFormProps<TFieldValues extends Record<string, unknown> = 
   onClose: () => void;
   onSubmit: () => void;
   children: React.ReactNode;
+  addModalTitle?: string;   
   addModalDescription?: string;
 };

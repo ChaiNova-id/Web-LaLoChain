@@ -46,15 +46,16 @@ const ModalWrapper = ({
   onClose,
   onSubmit,
   children,
+  addModalTitle,
   addModalDescription,
 }: AddPropertyFormProps) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/20 z-50">
       <Card className="w-fit p-6 bg-neutral-100 rounded-lg shadow-md outline-1 outline-neutral-400">
-        <CardHeader className="flex justify-between items-start mb-4">
+        <CardHeader className="flex justify-between items-start">
           <div>
             <CardTitle className="heading-7 text-green-600 ">
-              Add Property
+             {addModalTitle}
             </CardTitle>
             {addModalDescription && (
               <CardDescription className="mt-[6px] body-3">
