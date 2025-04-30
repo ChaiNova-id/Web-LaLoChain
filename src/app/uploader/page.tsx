@@ -22,8 +22,8 @@ export default function FileUploader() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="file" onChange={e => setFile(e.target.files?.[0] || null)} />
-      <button type="submit">Upload</button>
+      <input className='p-10 border-1' type="file" onChange={e => setFile(e.target.files?.[0] || null)} />
+      <button className='p-10 border-1' type="submit">Upload</button>
     </form>
   );
 }
