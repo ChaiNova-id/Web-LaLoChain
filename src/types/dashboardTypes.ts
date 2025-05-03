@@ -1,5 +1,6 @@
 export type PropertyOwner = {
   id: string;
+  property_id: string;
   name: string;
   description: string;
   location: string;
@@ -11,6 +12,7 @@ export type PropertyOwner = {
 
 export type PropertyInvestor = {
   id: string;
+  property_id: string;
   name: string;
   description: string;
   location: string;
