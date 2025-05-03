@@ -10,20 +10,88 @@ import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
 
 import ModalWrapper from "./ModalWrapper";
+import { AddPropertyFormData } from "@/types/data";
+import { useHotelRegistryStore } from "@/stores/hotelRegistryStore";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useModalStore } from "@/stores/modalStore";
+import { useWalletStore } from "@/stores/walletStore";
+import { useCreateProperty } from "@/hooks/api/useCreateProperty";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ModalAddProperty = () => {
-  const form = useForm();
+  const queryClient = useQueryClient();
+  const {
+    setHotelName,
+    setUsdcPrice,
+    setTotalMonth,
+    setTokenAmount,
+    setAuctionDuration,
+    handleRegisterHotel,
+    handleNextHotelId,
+  } = useHotelRegistryStore();
+  const { account } = useWalletStore();
+  const { closeModal } = useModalStore();
+  const { mutateAsync } = useCreateProperty();
 
-  const handleSubmit = () => {
-    console.log("Submitted:");
-    // Send data to smart contract API
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const form = useForm<AddPropertyFormData>({
+    defaultValues: {
+      name: "",
+      description: "",
+      location: "",
+      totalRevenue: "",
+      upfrontPrice: "",
+      uploadFinancialReport: undefined,
+      totalMonths: "",
+      auctionDuration: "",
+    },
+  });
+
+  const handleSubmit = async (data: AddPropertyFormData) => {
+    setHotelName(data.name);
+    setUsdcPrice(data.upfrontPrice);
+    setTotalMonth(data.totalMonths);
+    setTokenAmount(data.totalRevenue);
+    setAuctionDuration(Number(data.auctionDuration));
+
+    setIsSubmitting(true);
+
+    try {
+      await handleNextHotelId();
+      const nextHotelId = useHotelRegistryStore.getState().nextHotelId;
+      await toast.promise(handleRegisterHotel(), {
+        loading: "Registering hotel...",
+        error: "Failed to register hotel.",
+      });
+      await mutateAsync({
+        name: data.name,
+        description: data.description,
+        location: data.location,
+        revenue_report: "",
+        wallet_id: account || "",
+        property_id: nextHotelId || "",
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["properties", account],
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setIsSubmitting(false);
+      closeModal();
+    }
   };
+
   return (
     <ModalWrapper
       form={form}
-      onSubmit={() => handleSubmit()}
+      isLoading={isSubmitting}
+      onSubmit={handleSubmit}
       addModalTitle="Add Property"
-      addModalDescription="Fill out your property detail here. Click submit when you're done."
+      addModalDescription="Fills out your property detail here. Click submit when you're done."
     >
       {/* Name */}
       <FormField
@@ -125,6 +193,18 @@ const ModalAddProperty = () => {
               <FormLabel>Total Months</FormLabel>
               <FormControl>
                 <Input placeholder="Enter total months" {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="auctionDuration"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Auction Duration</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter your auction durations" {...field} />
               </FormControl>
             </FormItem>
           )}

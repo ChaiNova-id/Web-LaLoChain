@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Property {
+  id             String   @id @map("_id") @default(auto()) @db.ObjectId
+  property_id    String   @unique
+  name           String
+  description    String
+  location       String
+  revenue_report String   // File URL or IPFS hash
+}
+
+model Investor {
+  id           String         @id @map("_id") @default(auto()) @db.ObjectId
+  wallet_id    String         @unique
+  list_address PropertyLink[] @relation("InvestorPropertyLinks")
+}
+
+model Owner {
+  id           String         @id @map("_id") @default(auto()) @db.ObjectId
+  wallet_id    String         @unique
+  list_address PropertyLink[] @relation("OwnerPropertyLinks")
+}
+
+model PropertyLink {
+  id            String   @id @map("_id") @default(auto()) @db.ObjectId
+  property_id   String
+
+  investor      Investor? @relation(fields: [investorId], references: [id], name: "InvestorPropertyLinks")
+  investorId    String?
+
+  owner         Owner?    @relation(fields: [ownerId], references: [id], name: "OwnerPropertyLinks")
+  ownerId       String?
+}

@@ -42,6 +42,7 @@ import { useModalStore } from "@/stores/modalStore";
  */
 
 import { AddPropertyFormProps } from "@/types/modalTypes";
+import { CircleNotch } from "@phosphor-icons/react";
 
 const ModalWrapper = ({
   form,
@@ -49,6 +50,7 @@ const ModalWrapper = ({
   children,
   addModalTitle,
   addModalDescription,
+  isLoading,
 }: AddPropertyFormProps) => {
   const closeModal = useModalStore((state) => state.closeModal);
   return (
@@ -88,10 +90,19 @@ const ModalWrapper = ({
               </Button>
               <Button
                 type="submit"
+                disabled={isLoading}
                 variant="default"
                 className="bg-success-600 hover:bg-success-700 body-2 px-[50px] py-[25px] cursor-pointer"
               >
-                Confirm
+                {isLoading ? (
+                  <CircleNotch
+                    className="animate-spin text-neutral-50"
+                    size={20}
+                    weight="bold"
+                  />
+                ) : (
+                  "Submit"
+                )}
               </Button>
             </div>
           </form>

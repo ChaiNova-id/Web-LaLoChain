@@ -1,12 +1,11 @@
-import { UseFormReturn } from "react-hook-form";
+import { FieldValues, UseFormReturn } from "react-hook-form";
 
-export type AddPropertyFormProps<
-  TFieldValues extends Record<string, unknown> = Record<string, unknown>
-> = {
+export interface AddPropertyFormProps<TFieldValues extends FieldValues> {
   // useForm hook from react-hook-form
   form: UseFormReturn<TFieldValues>; // Using proper type from react-hook-form
   onSubmit: () => void;
   children: React.ReactNode;
   addModalTitle?: string;
   addModalDescription?: string;
-};
+  isLoading?: boolean;
+}

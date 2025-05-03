@@ -6,6 +6,7 @@ import Navbar from "@/components/allPage/Navbar";
 import Footer from "@/components/allPage/Footer";
 
 import { Toaster } from "react-hot-toast";
+import ReactQueryProvider from "@/components/allPage/reactQueryProvider";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -30,7 +31,9 @@ export default function RootLayout({
       >
         <Toaster position="top-center" reverseOrder={false} />
         <Navbar navlink={["Home", "Marketplace", "Owners", "Investors"]} />
-        <main className="w-full h-fit px-36 py-5">{children}</main>
+        <ReactQueryProvider>
+          <main className="w-full h-fit px-36 py-5">{children}</main>
+        </ReactQueryProvider>
         <Footer />
       </body>
     </html>

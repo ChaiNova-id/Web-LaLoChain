@@ -43,7 +43,9 @@ const HotelCard = ({
             href={`/marketplace/${id}`}
             className="flex flex-col justify-center items-center w-[4.5vw] aspect-[74/28] bg-brand-600 hover:bg-brand-700 rounded-md cursor-pointer"
           >
-            <span className="body-4 text-neutral-50 text-center">More Info</span>
+            <span className="body-4 text-neutral-50 text-center">
+              More Info
+            </span>
           </Link>
         </div>
       </div>

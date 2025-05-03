@@ -65,7 +65,9 @@ const KeyFeatures = () => {
                   {title}
                 </CardTitle>
               </CardHeader>
-              <p className="mt-1 text-[20px] font-semibold text-neutral-900">{subtitle}</p>
+              <p className="mt-1 text-[20px] font-semibold text-neutral-900">
+                {subtitle}
+              </p>
             </CardContent>
           </Card>
         ))}
