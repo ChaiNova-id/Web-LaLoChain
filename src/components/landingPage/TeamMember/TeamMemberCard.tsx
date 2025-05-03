@@ -7,7 +7,7 @@ interface TeamMember {
   name: string;
   role: string;
   bio: string;
-  avatarUrl: string;
+  avatarUrl?: string;
   githubUrl?: string;
   linkedinUrl?: string;
 }
@@ -23,7 +23,12 @@ const TeamMemberCard = ({
   return (
     <div className="w-56 flex flex-col items-center space-y-4">
       <div className="w-56 h-56 relative rounded-full overflow-hidden bg-neutral-100">
-        <Image src={avatarUrl} alt={name} fill className="object-cover" />
+        <Image
+          src={avatarUrl || "/placeholder-avatar.jpg"}
+          alt={name}
+          fill
+          className="object-cover"
+        />
       </div>
       <div className="text-center space-y-1">
         <h3 className="text-lg font-bold text-neutral-900">{name}</h3>
@@ -33,12 +38,12 @@ const TeamMemberCard = ({
       <div className="flex space-x-4">
         {/* placeholder icons */}
         {githubUrl && (
-          <Link href={githubUrl}>
+          <Link target="_blank" rel="noopener noreferrer" href={githubUrl}>
             <Github />
           </Link>
         )}
         {linkedinUrl && (
-          <Link href={linkedinUrl}>
+          <Link target="blank" rel="noopener noreferrer" href={linkedinUrl}>
             <Linkedin />
           </Link>
         )}
