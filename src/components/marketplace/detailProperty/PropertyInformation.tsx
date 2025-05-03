@@ -93,7 +93,7 @@ const PropertyInformation = () => {
                 className="heading-6 w-[140px] text-neutral-50"
               />
             </div>
-            <ArrowBigRightDash />
+            <ArrowBigRightDash className="w-[36px] h-[36px]" />
             <div className="px-2 py-[10px] space-y-3 bg-brand-100 rounded-[8px] ">
               <Label htmlFor="llot-amount" className="heading-9 text-brand-500">
                 Get USDC
