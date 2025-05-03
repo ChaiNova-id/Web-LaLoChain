@@ -43,6 +43,7 @@ import { useModalStore } from "@/stores/modalStore";
 
 import { AddPropertyFormProps } from "@/types/modalTypes";
 import { CircleNotch } from "@phosphor-icons/react";
+import { FieldValues } from "react-hook-form";
 
 const ModalWrapper = ({
   form,
@@ -51,7 +52,7 @@ const ModalWrapper = ({
   addModalTitle,
   addModalDescription,
   isLoading,
-}: AddPropertyFormProps) => {
+}: AddPropertyFormProps<FieldValues>) => {
   const closeModal = useModalStore((state) => state.closeModal);
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/20 z-50">
