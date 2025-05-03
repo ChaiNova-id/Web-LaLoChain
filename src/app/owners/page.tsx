@@ -20,7 +20,7 @@ export default function PropertyDashboard() {
   const { account } = useWalletStore();
   const { data: properties, isLoading } = usePropertiesByWallet(account);
 
-  const { openModal, isOpen } = useModalStore();
+  const { openModalAddProperty, isOpenAddProperty } = useModalStore();
 
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(
@@ -41,7 +41,10 @@ export default function PropertyDashboard() {
     <>
       <div className="space-y-8">
         {/* Title */}
-        <TitleDashboard title="Property Dashboard" onClick={openModal} />
+        <TitleDashboard
+          title="Property Dashboard"
+          onClick={openModalAddProperty}
+        />
         {/* Search Bar */}
         <SearchBar />
         {/* Tabel */}
@@ -77,7 +80,7 @@ export default function PropertyDashboard() {
           pageSize={properties?.pagination.pageSize || 10}
         />
       </div>
-      {isOpen && <ModalAddProperty />}
+      {isOpenAddProperty && <ModalAddProperty />}
     </>
   );
 }
