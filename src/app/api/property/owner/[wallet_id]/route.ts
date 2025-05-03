@@ -1,11 +1,13 @@
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(
   req: NextRequest,
-  { params }: { params: { wallet_id: string } }
+  context: { params: { wallet_id: string } }
 ) {
-  const { wallet_id } = params;
+  const { wallet_id } = await context.params;
   const { searchParams } = new URL(req.url);
   const page = parseInt(searchParams.get("page") || "1", 10);
   const pageSize = parseInt(searchParams.get("pageSize") || "10", 10);
