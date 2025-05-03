@@ -4,6 +4,7 @@ import HotelCard, { HotelCardProps } from "@/components/marketplace/hotel-card";
 
 const hotelData: HotelCardProps[] = [
   {
+    id: "1",
     location: "New York, USA",
     yieldRate: "1.5",
     image: "/images/testing.png",
@@ -11,6 +12,7 @@ const hotelData: HotelCardProps[] = [
     tokenValue: "250",
   },
   {
+    id: "2",
     location: "Paris, France",
     yieldRate: "2.0",
     image: "/images/testing.png",
@@ -18,6 +20,7 @@ const hotelData: HotelCardProps[] = [
     tokenValue: "300",
   },
   {
+    id: "3",
     location: "Tokyo, Japan",
     yieldRate: "1.8",
     image: "/images/testing.png",
@@ -25,6 +28,7 @@ const hotelData: HotelCardProps[] = [
     tokenValue: "220",
   },
   {
+    id: "4",
     location: "Sydney, Australia",
     yieldRate: "1.6",
     image: "/images/testing.png",
@@ -32,6 +36,7 @@ const hotelData: HotelCardProps[] = [
     tokenValue: "280",
   },
   {
+    id: "5",
     location: "Cape Town, South Africa",
     yieldRate: "1.7",
     image: "/images/testing.png",
@@ -58,6 +63,7 @@ export default function MarketPlacePage() {
         {hotelData.map((hotel, index) => (
           <div key={index} className="flex justify-center">
             <HotelCard
+              id={hotel.id}
               location={hotel.location}
               image={hotel.image}
               propertyName={hotel.propertyName}
