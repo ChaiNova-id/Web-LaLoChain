@@ -18,12 +18,16 @@ import { Info } from "lucide-react";
 
 import { PropertyOwner, PropertyInvestor } from "@/types/dashboardTypes";
 
+import { useModalStore } from "@/stores/modalStore";
+
 export default function DashboardTable({
   properties,
   type,
+  Modal,
 }: {
   properties?: PropertyOwner[] | PropertyInvestor[];
   type: "owner" | "investor";
+  Modal?: React.ComponentType<{ property_id: string | number }>;
 }) {
   const columns = [
     {
@@ -128,6 +132,7 @@ export default function DashboardTable({
                 ? "bg-warning-600 hover:bg-warning-500"
                 : "bg-success-600 hover:bg-success-500"
             } text-neutral-50  caption-3 px-2 cursor-pointer`}
+            onClick={openModal}
           >
             {type === "owner" ? "Deposit" : "Withdraw"}
           </Button>
@@ -136,40 +141,47 @@ export default function DashboardTable({
     },
   ] as const;
 
-  return (
-    <Table className="bg-neutral-50 border border-neutral-200 cursor-default">
-      <TableHeader className="bg-neutral-100">
-        <TableRow>
-          {columns.map((col) => (
-            <TableHead
-              key={col.key}
-              className={`${
-                col.label === "Property" ? "text-left" : "text-center"
-              } body-3`}
-            >
-              {col.label}
-            </TableHead>
-          ))}
-        </TableRow>
-      </TableHeader>
+  const { openModal, isOpen } = useModalStore();
 
-      <TableBody>
-        {properties?.map((p) => (
-          <TableRow key={p.id} className="hover:bg-neutral-50">
+  return (
+    <>
+      <Table className="bg-neutral-50 border border-neutral-200 cursor-default">
+        <TableHeader className="bg-neutral-100">
+          <TableRow>
             {columns.map((col) => (
-              <TableCell key={col.key} className={col.className}>
-                {col.render(p)}
-              </TableCell>
+              <TableHead
+                key={col.key}
+                className={`${
+                  col.label === "Property" ? "text-left" : "text-center"
+                } body-3`}
+              >
+                {col.label}
+              </TableHead>
             ))}
           </TableRow>
-        )) || (
-          <TableRow>
-            <TableCell colSpan={columns.length} className="text-center">
-              No properties found
-            </TableCell>
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+        </TableHeader>
+        <TableBody>
+          {properties?.map((p) => (
+            <>
+              <TableRow key={p.id} className="hover:bg-neutral-50">
+                {columns.map((col) => (
+                  <TableCell key={col.key} className={col.className}>
+                    {col.render(p)}
+                  </TableCell>
+                ))}
+              </TableRow>
+              {/* deposit modal */}
+              {isOpen && Modal && <Modal property_id={p.property_id} />}
+            </>
+          )) || (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="text-center">
+                No properties found
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </>
   );
 }

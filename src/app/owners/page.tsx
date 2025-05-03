@@ -5,6 +5,7 @@ import PropertyTablePagination from "@/components/dashboard/PropertyTablePaginat
 import TitleDashboard from "@/components/dashboard/TitleDashboard";
 import SearchBar from "@/components/allPage/SearchBar";
 import ModalAddProperty from "@/components/allPage/Modal/ModalAddProperty";
+import ModalWithdraw from "@/components/allPage/Modal/ModalWithdraw";
 
 import { useModalStore } from "@/stores/modalStore";
 import { useEffect, useState } from "react";
@@ -57,7 +58,13 @@ export default function PropertyDashboard() {
             <p className="heading-4 text-brand-500">No properties found</p>
           </div>
         ) : (
-          <DashboardTable type="owner" properties={enrichedProperties} />
+          <DashboardTable
+            type="owner"
+            properties={enrichedProperties}
+            Modal={({ property_id }) => (
+              <ModalWithdraw property_id={String(property_id)} />
+            )}
+          />
         )}
 
         {/* Pagination + Row Count */}

@@ -4,6 +4,7 @@ import OwnerDashboardTable from "@/components/dashboard/DashboardTable";
 import PropertyTablePagination from "@/components/dashboard/PropertyTablePagination";
 import TitleDashboard from "@/components/dashboard/TitleDashboard";
 import SearchBar from "@/components/allPage/SearchBar";
+import ModalDeposit from "@/components/allPage/Modal/ModalDeposit";
 
 import { investorProperties } from "@/dummy/investorPropertyData";
 
@@ -26,6 +27,9 @@ export default function InvestorDashboard() {
       <OwnerDashboardTable
         type="investor"
         properties={investorProperties.slice(startIndex, endIndex)}
+        Modal={({ property_id }) => (
+          <ModalDeposit property_id={String(property_id)} />
+        )}
       />
 
       {/* Pagination + Row Count */}
