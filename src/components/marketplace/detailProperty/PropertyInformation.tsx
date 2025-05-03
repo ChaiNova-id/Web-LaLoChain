@@ -61,10 +61,10 @@ const PropertyInformation = () => {
           <div className="space-y-2">
             <div className="heading-10 text-neutral-950">Backed by</div>
             <div>
-              <Badge variant="destructive" className="mr-[6px]">
+              <Badge variant="destructive" className="mr-[6px] py-1 body-4">
                 Not Verified
               </Badge>
-              <Badge variant="default">Notaris Eben</Badge>
+              <Badge variant="default" className=" py-1 body-4">Notaris Eben</Badge>
             </div>
           </div>
         </div>
