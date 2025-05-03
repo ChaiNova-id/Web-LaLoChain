@@ -16,45 +16,21 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Info } from "lucide-react";
 
-type Property = {
-  id: string;
-  name: string;
-  description: string;
-  location: string;
-  rentalIncome: string;
-  tokenizedValue: string;
-  status: "Verified" | "Not Verified";
-};
+import { PropertyOwner, PropertyInvestor } from "@/types/dashboardTypes";
 
-export default function OwnerDashboardTable() {
-  const properties: Property[] = [
-    {
-      id: "1",
-      name: "G&B House",
-      description: "A beautiful house in Surakarta",
-      location: "Surakarta",
-      rentalIncome: "$300/month",
-      tokenizedValue: "$3,200",
-      status: "Verified",
-    },
-    {
-      id: "2",
-      name: "G&B House",
-      description: "A beautiful house in Surakarta",
-      location: "Surakarta",
-      rentalIncome: "$300/month",
-      tokenizedValue: "$3,200",
-      status: "Not Verified",
-    },
-  ];
-
-  // definisikan kolom sekali saja
+export default function DashboardTable({
+  properties,
+  type,
+}: {
+  properties?: PropertyOwner[] | PropertyInvestor[];
+  type: "owner" | "investor";
+}) {
   const columns = [
     {
       key: "name",
       label: "Property",
       className: "flex items-center gap-2",
-      render: (p: Property) => (
+      render: (p: PropertyOwner | PropertyInvestor) => (
         <>
           <span className="caption-3 text-neutral-950">{p.name}</span>
           <TooltipProvider>
@@ -78,31 +54,57 @@ export default function OwnerDashboardTable() {
       key: "location",
       label: "Location",
       className: "text-center",
-      render: (p: Property) => (
+      render: (p: PropertyOwner | PropertyInvestor) => (
         <span className="caption-3 text-neutral-950">{p.location}</span>
       ),
     },
     {
-      key: "rentalIncome",
-      label: "Rental Income",
+      key: `${type === "owner" ? "rate" : "tokensOwn"}`,
+      label: `${type === "owner" ? "Rate" : "Tokens Own"}`,
       className: "text-center",
-      render: (p: Property) => (
-        <span className="caption-3 text-neutral-950">{p.rentalIncome}</span>
+      render: (p: PropertyOwner | PropertyInvestor) => (
+        <span className="caption-3 text-neutral-950">
+          {type === "owner" && "rate" in p
+            ? p.rate + " %"
+            : "tokensOwn" in p
+            ? p.tokensOwn + " LLoT"
+            : null}
+        </span>
       ),
     },
     {
-      key: "tokenizedValue",
-      label: "Tokenized",
+      key: `${type === "owner" ? "availableTokens" : "withdrawLimit"}`,
+      label: `${type === "owner" ? "Available Tokens" : "Withdraw Limit"}`,
       className: "text-center",
-      render: (p: Property) => (
-        <span className="caption-3 text-neutral-950">{p.tokenizedValue}</span>
+      render: (p: PropertyOwner | PropertyInvestor) => (
+        <span className="caption-3 text-neutral-950">
+          {type === "owner" && "availableTokens" in p
+            ? p.availableTokens + " LLoT"
+            : "withdrawLimit" in p
+            ? p.withdrawLimit + " USDC"
+            : null}
+        </span>
+      ),
+    },
+    {
+      key: `${type === "owner" ? "remainingDebt" : "withdrawn"}`,
+      label: `${type === "owner" ? "Remaining Debt" : "Withdrawn"}`,
+      className: "text-center",
+      render: (p: PropertyOwner | PropertyInvestor) => (
+        <span className="caption-3 text-neutral-950">
+          {type === "owner" && "remainingDebt" in p
+            ? p.remainingDebt + " USDC"
+            : "withdrawn" in p
+            ? p.withdrawn + " USDC"
+            : null}
+        </span>
       ),
     },
     {
       key: "status",
       label: "Status",
       className: "text-center",
-      render: (p: Property) => (
+      render: (p: PropertyOwner | PropertyInvestor) => (
         <Badge
           variant={p.status === "Verified" ? "default" : "destructive"}
           className={`${
@@ -117,19 +119,17 @@ export default function OwnerDashboardTable() {
       key: "action",
       label: "Action",
       className: "flex justify-center gap-2",
-      render: (_: Property) => (
+      render: () => (
         <>
           <Button
             size="sm"
-            className="text-neutral-50 bg-warning-600 hover:bg-warning-500 caption-3 px-2 cursor-pointer"
+            className={`${
+              type === "owner"
+                ? "bg-warning-600 hover:bg-warning-500"
+                : "bg-success-600 hover:bg-success-500"
+            } text-neutral-50  caption-3 px-2 cursor-pointer`}
           >
-            Edit
-          </Button>
-          <Button
-            size="sm"
-            className="text-neutral-50 bg-error-600 hover:bg-error-500 caption-3 px-2 cursor-pointer"
-          >
-            Delete
+            {type === "owner" ? "Deposit" : "Withdraw"}
           </Button>
         </>
       ),
@@ -141,7 +141,12 @@ export default function OwnerDashboardTable() {
       <TableHeader className="bg-neutral-100">
         <TableRow>
           {columns.map((col) => (
-            <TableHead key={col.key} className="body-3 text-center">
+            <TableHead
+              key={col.key}
+              className={`${
+                col.label === "Property" ? "text-left" : "text-center"
+              } body-3`}
+            >
               {col.label}
             </TableHead>
           ))}
@@ -149,7 +154,7 @@ export default function OwnerDashboardTable() {
       </TableHeader>
 
       <TableBody>
-        {properties.map((p) => (
+        {properties?.map((p) => (
           <TableRow key={p.id} className="hover:bg-neutral-50">
             {columns.map((col) => (
               <TableCell key={col.key} className={col.className}>
@@ -157,7 +162,13 @@ export default function OwnerDashboardTable() {
               </TableCell>
             ))}
           </TableRow>
-        ))}
+        )) || (
+          <TableRow>
+            <TableCell colSpan={columns.length} className="text-center">
+              No properties found
+            </TableCell>
+          </TableRow>
+        )}
       </TableBody>
     </Table>
   );
