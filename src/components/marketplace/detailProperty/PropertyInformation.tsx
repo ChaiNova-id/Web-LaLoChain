@@ -24,7 +24,7 @@ const PropertyInformation = () => {
         </div>
         <div className="w-[450px] aspect-square relative rounded-b-2xl overflow-hidden bg-neutral-100">
           <Image
-            src="/images/Property.png"
+            src="/images/Property.svg"
             alt="Villa One Hyde Park"
             fill
             className="object-cover"

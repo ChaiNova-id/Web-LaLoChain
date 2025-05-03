@@ -6,24 +6,24 @@ import Image from "next/image";
 const features = [
   {
     section: "Owner Dashboard",
-    title: "zkTLS Verification",
-    subtitle: "Verify property ownership securely",
-    tag: "Property Verification",
-    bgImage: "/images/feature-verification.png",
+    title: "Underwriter Assurance",
+    subtitle: "Backed by third-party experts",
+    tag: "Property Guarantee",
+    bgImage: "/images/UnderwriterAssurance.svg",
   },
   {
     section: "Marketplace",
     title: "Tokenized Income",
     subtitle: "Invest in rental income streams",
     tag: "Rental Income Liquidity",
-    bgImage: "/images/feature-marketplace.png",
+    bgImage: "/images/TokenizedIncome.svg",
   },
   {
     section: "",
     title: "Blockchain Security",
     subtitle: "Ensuring data integrity and transparency",
     tag: "Security & Transparency",
-    bgImage: "/images/feature-security.png",
+    bgImage: "/images/BlockchainSecurity.svg",
   },
 ];
 
@@ -34,11 +34,10 @@ const KeyFeatures = () => {
       <div className="flex items-center justify-between">
         <div className="space-y-2 flex-1">
           <h2 className="text-4xl font-bold leading-tight">Key Features</h2>
-          <p className="text-base text-zinc-800">
+          <p className="text-base text-zinc-800 mt-5">
             Explore the core functionalities of our platform
           </p>
         </div>
-        <div className="w-44 h-44 bg-neutral-200 rounded-lg" />
       </div>
 
       {/* Feature Cards */}
@@ -46,31 +45,27 @@ const KeyFeatures = () => {
         {features.map(({ section, tag, title, subtitle, bgImage }) => (
           <Card
             key={title}
-            className="overflow-hidden border border-neutral-200"
+            className="overflow-hidden border border-neutral-200 -py-6"
           >
             <div className="relative h-80 bg-neutral-100">
               <Image src={bgImage} alt={tag} fill className="object-cover" />
 
               {section && (
-                <div className="absolute top-0 left-0 bg-black/10 rounded-tr-md rounded-bl-md px-2 py-1">
-                  <span className="text-xs font-medium text-black">
+                <div className="absolute top-0 left-0 bg-brand-400 rounded-tr-md rounded-bl-md px-2 py-1">
+                  <span className="text-[12px] font-semibold text-neutral-900">
                     {section}
                   </span>
                 </div>
               )}
-
-              <div className="absolute bottom-0 left-0 w-full bg-white/70 text-center py-1">
-                <span className="text-xs text-black">{tag}</span>
-              </div>
             </div>
 
-            <CardContent className="p-4">
+            <CardContent className="px-4 mb-6">
               <CardHeader className="p-0">
-                <CardTitle className="text-base font-normal text-black">
+                <CardTitle className="text-base font-normal text-neutral-700">
                   {title}
                 </CardTitle>
               </CardHeader>
-              <p className="mt-1 text-sm text-zinc-700">{subtitle}</p>
+              <p className="mt-1 text-[20px] font-semibold text-neutral-900">{subtitle}</p>
             </CardContent>
           </Card>
         ))}
