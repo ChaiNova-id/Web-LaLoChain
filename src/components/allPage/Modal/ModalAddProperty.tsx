@@ -129,6 +129,18 @@ const ModalAddProperty = () => {
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="auctionDuration"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Auction Duration</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter your auction duration" {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
       </div>
     </ModalWrapper>
   );
