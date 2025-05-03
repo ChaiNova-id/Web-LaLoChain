@@ -10,16 +10,16 @@ import { useForm } from "react-hook-form";
 
 import ModalWrapper from "./ModalWrapper";
 
-const ModalDeposit = () => {
+const ModalDeposit = ({ property_id }: { property_id: string }) => {
   const form = useForm();
-  const handleSubmit = () => {
-    console.log("Submitted:");
+  const handleSubmit = (property_id: string) => {
+    console.log("Submitted:", property_id);
     // Send data to smart contract API
   };
   return (
     <ModalWrapper
       form={form}
-      onSubmit={() => handleSubmit()}
+      onSubmit={() => handleSubmit(property_id)}
       addModalTitle="Deposit Revenue"
     >
       {/* Number of Revenue (USDC) */}
