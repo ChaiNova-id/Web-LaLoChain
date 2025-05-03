@@ -1,14 +1,6 @@
 import { prisma } from "@/lib/prisma";
+import { CreatePropertyRequest } from "@/types/api";
 import { NextRequest, NextResponse } from "next/server";
-
-interface CreatePropertyRequest {
-  property_id: string;
-  name: string;
-  description: string;
-  location: string;
-  revenue_report: string;
-  wallet_id: string;
-}
 
 export async function POST(req: NextRequest) {
   const body = await req.json();

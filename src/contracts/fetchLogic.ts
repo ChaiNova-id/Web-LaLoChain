@@ -38,7 +38,8 @@ export const getterContract = async ({
 
     await callback(contract);
   } catch (error) {
-    alert("Error fetching contract: " + error);
+    console.error("Error in getterContract:", error);
+    toast.error("An error occurred while interacting with the contract.");
   } finally {
     setLoading(false);
   }
