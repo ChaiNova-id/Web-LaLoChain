@@ -6,3 +6,10 @@ export interface CreatePropertyRequest {
   revenue_report: string;
   wallet_id: string;
 }
+
+export type PaginationMeta = {
+  page: number;
+  pageSize: number;
+  total: number;
+  totalPages: number;
+};

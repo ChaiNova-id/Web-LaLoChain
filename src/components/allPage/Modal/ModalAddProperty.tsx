@@ -17,8 +17,10 @@ import toast from "react-hot-toast";
 import { useModalStore } from "@/stores/modalStore";
 import { useWalletStore } from "@/stores/walletStore";
 import { useCreateProperty } from "@/hooks/api/useCreateProperty";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ModalAddProperty = () => {
+  const queryClient = useQueryClient();
   const {
     setHotelName,
     setUsdcPrice,
@@ -27,7 +29,6 @@ const ModalAddProperty = () => {
     setAuctionDuration,
     handleRegisterHotel,
     handleNextHotelId,
-    nextHotelId,
   } = useHotelRegistryStore();
   const { account } = useWalletStore();
   const { closeModal } = useModalStore();
@@ -59,6 +60,7 @@ const ModalAddProperty = () => {
 
     try {
       await handleNextHotelId();
+      const nextHotelId = useHotelRegistryStore.getState().nextHotelId;
       await toast.promise(handleRegisterHotel(), {
         loading: "Registering hotel...",
         error: "Failed to register hotel.",
@@ -70,6 +72,10 @@ const ModalAddProperty = () => {
         revenue_report: "",
         wallet_id: account || "",
         property_id: nextHotelId || "",
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["properties", account],
       });
     } catch (error) {
       console.error("Error submitting form:", error);
