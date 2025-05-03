@@ -12,6 +12,7 @@ import { useState } from "react";
 const PropertyInformation = () => {
   const [llotValue, setLlotValue] = useState(4000);
   const [usdcValue, setUsdcValue] = useState(llotValue * 2);
+  const rate = 2; // Change this to the actual rate
   return (
     <div className="flex flex-row justify-center gap-[100px] py-8">
       {/* Left column: gambar + back button */}
@@ -84,7 +85,6 @@ const PropertyInformation = () => {
                 id="llot-amount"
                 onChange={(e) => {
                   const value = Number(e.target.value);
-                  const rate = 2; // Change this to the actual rate
                   setLlotValue(value);
                   setUsdcValue(value * rate);
                 }}
