@@ -8,7 +8,7 @@ import { ThumbsUp, ShieldCheck, UserCheck, LockKeyhole } from "lucide-react";
 
 const PropertyInfoTabs = () => {
   return (
-    <Tabs defaultValue="financials" className="w-full space-y-5">
+    <Tabs defaultValue="verification" className="w-full space-y-5">
       {/* Tab headers */}
       <TabsList>
         <TabsTrigger value="financials" className="heading-8 cursor-pointer">

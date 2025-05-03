@@ -7,7 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ArrowRight, MapPin, ArrowBigRightDash } from "lucide-react";
 
+import { useState } from "react";
+
 const PropertyInformation = () => {
+  const [llotValue, setLlotValue] = useState(4000);
+  const [usdcValue, setUsdcValue] = useState(llotValue * 2);
   return (
     <div className="flex flex-row justify-center gap-[100px] py-8">
       {/* Left column: gambar + back button */}
@@ -64,7 +68,9 @@ const PropertyInformation = () => {
               <Badge variant="destructive" className="mr-[6px] py-1 body-4">
                 Not Verified
               </Badge>
-              <Badge variant="default" className=" py-1 body-4">Notaris Eben</Badge>
+              <Badge variant="default" className=" py-1 body-4">
+                Notaris Eben
+              </Badge>
             </div>
           </div>
         </div>
@@ -76,8 +82,14 @@ const PropertyInformation = () => {
               </Label>
               <Input
                 id="llot-amount"
+                onChange={(e) => {
+                  const value = Number(e.target.value);
+                  const rate = 2; // Change this to the actual rate
+                  setLlotValue(value);
+                  setUsdcValue(value * rate);
+                }}
                 type="number"
-                defaultValue={4000}
+                defaultValue={llotValue}
                 className="heading-6 w-[140px] text-neutral-50"
               />
             </div>
@@ -90,12 +102,15 @@ const PropertyInformation = () => {
                 id="llot-amount"
                 type="number"
                 disabled={true}
-                defaultValue={8000}
+                defaultValue={usdcValue}
                 className="heading-6 w-[140px] text-neutral-950"
               />
             </div>
           </div>
-          <Button variant="primaryBrand" className="w-full mt-4 p-7 cursor-pointer">
+          <Button
+            variant="primaryBrand"
+            className="w-full mt-4 p-7 cursor-pointer"
+          >
             Buy Token <ArrowRight />
           </Button>
         </div>
