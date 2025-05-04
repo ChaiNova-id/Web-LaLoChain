@@ -55,7 +55,7 @@ const PropertyInformation = ({ property_id }: PropertyInformationProps) => {
   };
 
   return (
-    <div className="flex flex-row justify-center gap-[100px] py-8">
+    <div className="flex flex-row justify-between gap-[100px] py-8">
       {/* Left column: gambar + back button */}
       <div className="space-y-4 w-fit">
         <div
@@ -75,7 +75,7 @@ const PropertyInformation = ({ property_id }: PropertyInformationProps) => {
       </div>
 
       {/* Right column: detail */}
-      <div className="w-fit space-y-5 flex flex-col justify-center">
+      <div className="w-full space-y-5 flex flex-col justify-center">
         <div>
           <h1 className="heading-3 text-brand-700">{property?.name}</h1>
           <div className="flex items-center gap-2 mt-5 text-neutral-500">
@@ -126,9 +126,9 @@ const PropertyInformation = ({ property_id }: PropertyInformationProps) => {
             </div>
           </div>
         </div>
-        <div className="space-y-2 text-right w-fit mx-auto">
+        <div className="space-y-2 text-right w-full">
           <div className="flex gap-4 items-center">
-            <div className="px-2 py-[10px] space-y-3 bg-neutral-900 rounded-[8px] ">
+            <div className="w-[320px] px-2 py-[10px] space-y-3 bg-neutral-900 rounded-[8px] ">
               <Label htmlFor="llot-amount" className="heading-9 text-brand-500">
                 Buy LLoT
               </Label>
@@ -147,11 +147,11 @@ const PropertyInformation = ({ property_id }: PropertyInformationProps) => {
                 }}
                 type="number"
                 defaultValue={llotValue}
-                className="heading-6 w-[140px] text-neutral-50"
+                className="heading-6 w-full text-neutral-50"
               />
             </div>
             <ArrowBigRightDash className="w-[36px] h-[36px]" />
-            <div className="px-2 py-[10px] space-y-3 bg-brand-100 rounded-[8px] ">
+            <div className="w-[320px] px-2 py-[10px] space-y-3 bg-brand-100 rounded-[8px] ">
               <Label htmlFor="llot-amount" className="heading-9 text-brand-500">
                 Get USDCs
               </Label>
@@ -160,7 +160,7 @@ const PropertyInformation = ({ property_id }: PropertyInformationProps) => {
                 type="number"
                 disabled={true}
                 value={usdcValue}
-                className="heading-6 w-[140px] text-neutral-950"
+                className="heading-6 w-full text-neutral-950"
               />
             </div>
           </div>
