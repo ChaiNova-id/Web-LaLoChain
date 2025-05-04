@@ -17,15 +17,19 @@ import { CircleNotch } from "@phosphor-icons/react";
 import ModalDeposit from "@/components/allPage/Modal/ModalDeposit";
 
 export default function PropertyDashboard() {
+  const pageSize = 10;
   const { account } = useWalletStore();
-  const { data: properties, isLoading } = usePropertiesByWallet(account);
+  const [currentPage, setCurrentPage] = useState(1);
+  const { data: properties, isLoading } = usePropertiesByWallet(
+    account,
+    currentPage,
+    pageSize
+  );
 
   const { openModalAddProperty, isOpenAddProperty } = useModalStore();
 
   const [startIndex, setStartIndex] = useState(0);
-  const [endIndex, setEndIndex] = useState(
-    properties?.pagination.pageSize || 10
-  );
+  const [endIndex, setEndIndex] = useState(pageSize);
 
   const [enrichedProperties, setEnrichedProperties] = useState<PropertyOwner[]>(
     []
@@ -83,7 +87,9 @@ export default function PropertyDashboard() {
           endIndex={endIndex}
           setEndIndex={setEndIndex}
           totalRows={properties?.pagination.total || 0}
-          pageSize={properties?.pagination.pageSize || 10}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
         />
       </div>
       {isOpenAddProperty && <ModalAddProperty />}
