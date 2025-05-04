@@ -15,6 +15,7 @@ import { useHotelTokenizationStore } from "@/stores/hotelTokenizationStore";
 import { CircleNotch } from "@phosphor-icons/react";
 import { useWalletStore } from "@/stores/walletStore";
 import { useProperty } from "@/hooks/api/useProperty";
+import { useCreateInvestorProperty } from "@/hooks/api/useCreateProperty";
 
 interface PropertyInformationProps {
   property_id: string;
@@ -25,6 +26,8 @@ const PropertyInformation = ({ property_id }: PropertyInformationProps) => {
   const { data: property } = useProperty(property_id);
   const availableTokenCount = Number(propertyData?.availableTokens);
   const rate = Number(propertyData?.rate);
+  const { mutateAsync } = useCreateInvestorProperty();
+  const { account } = useWalletStore();
 
   const [llotValue, setLlotValue] = useState(0);
   const [usdcValue, setUsdcValue] = useState(0);
@@ -47,6 +50,10 @@ const PropertyInformation = ({ property_id }: PropertyInformationProps) => {
       await toast.promise(handleBuyLaLoTokens(llotValue.toString()), {
         loading: "Buying...",
         error: "Purchase failed.",
+      });
+      await mutateAsync({
+        property_id: property_id,
+        wallet_id: account || "",
       });
     } catch (error) {
       console.error("Error buying token:", error);
@@ -93,7 +100,7 @@ const PropertyInformation = ({ property_id }: PropertyInformationProps) => {
             <div className="heading-6 text-neutral-900">
               Available:{" "}
               <span className="text-brand-500">
-                {propertyData?.availableTokens}
+                {(propertyData?.availableTokens || 0) / rate} LLoT
               </span>
             </div>
 

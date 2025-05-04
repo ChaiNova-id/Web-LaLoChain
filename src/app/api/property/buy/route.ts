@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-interface PurchaseRequest {
+export interface PurchaseRequest {
   property_id: string;
   wallet_id: string;
 }
