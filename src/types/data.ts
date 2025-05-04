@@ -8,3 +8,7 @@ export type AddPropertyFormData = {
   totalMonths: string;
   auctionDuration: string;
 };
+
+export type OwnerDepositUSDCFormData = {
+  amount: string;
+};
