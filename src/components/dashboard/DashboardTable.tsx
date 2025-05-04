@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Table,
   TableHeader,
@@ -15,11 +16,8 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Info } from "lucide-react";
-
 import { PropertyOwner, PropertyInvestor } from "@/types/dashboardTypes";
-
 import { useModalStore } from "@/stores/modalStore";
-import React from "react";
 
 export default function DashboardTable({
   properties,
@@ -30,6 +28,14 @@ export default function DashboardTable({
   type: "owner" | "investor";
   Modal?: React.ComponentType<{ property_id: string | number }>;
 }) {
+  const { openModal, isOpen } = useModalStore();
+  const [selectedId, setSelectedId] = useState<string | number | null>(null);
+
+  const handleOpenModal = (id: string | number) => {
+    setSelectedId(id);
+    openModal();
+  };
+
   const columns = [
     {
       key: "name",
@@ -70,9 +76,9 @@ export default function DashboardTable({
       render: (p: PropertyOwner | PropertyInvestor) => (
         <span className="caption-3 text-neutral-950">
           {type === "owner" && "rate" in p
-            ? p.rate + " %"
+            ? `${p.rate} %`
             : "tokensOwn" in p
-            ? p.tokensOwn + " LLoT"
+            ? `${p.tokensOwn} LLoT`
             : null}
         </span>
       ),
@@ -84,9 +90,9 @@ export default function DashboardTable({
       render: (p: PropertyOwner | PropertyInvestor) => (
         <span className="caption-3 text-neutral-950">
           {type === "owner" && "availableTokens" in p
-            ? p.availableTokens + " LLoT"
+            ? `${p.availableTokens} LLoT`
             : "withdrawLimit" in p
-            ? p.withdrawLimit + " USDC"
+            ? `${p.withdrawLimit} USDC`
             : null}
         </span>
       ),
@@ -98,9 +104,9 @@ export default function DashboardTable({
       render: (p: PropertyOwner | PropertyInvestor) => (
         <span className="caption-3 text-neutral-950">
           {type === "owner" && "remainingDebt" in p
-            ? p.remainingDebt + " USDC"
+            ? `${p.remainingDebt} USDC`
             : "withdrawn" in p
-            ? p.withdrawn + " USDC"
+            ? `${p.withdrawn} USDC`
             : null}
         </span>
       ),
@@ -124,25 +130,21 @@ export default function DashboardTable({
       key: "action",
       label: "Action",
       className: "flex justify-center gap-2",
-      render: () => (
-        <>
-          <Button
-            size="sm"
-            className={`${
-              type === "owner"
-                ? "bg-warning-600 hover:bg-warning-500"
-                : "bg-success-600 hover:bg-success-500"
-            } text-neutral-50  caption-3 px-2 cursor-pointer`}
-            onClick={openModal}
-          >
-            {type === "owner" ? "Deposit" : "Withdraw"}
-          </Button>
-        </>
+      render: (p: PropertyOwner | PropertyInvestor) => (
+        <Button
+          size="sm"
+          className={`${
+            type === "owner"
+              ? "bg-warning-600 hover:bg-warning-500"
+              : "bg-success-600 hover:bg-success-500"
+          } text-neutral-50 caption-3 px-2 cursor-pointer`}
+          onClick={() => handleOpenModal(p.property_id)}
+        >
+          {type === "owner" ? "Deposit" : "Withdraw"}
+        </Button>
       ),
     },
   ] as const;
-
-  const { openModal, isOpen } = useModalStore();
 
   return (
     <>
@@ -162,8 +164,8 @@ export default function DashboardTable({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {properties?.map((p) => (
-            <React.Fragment key={p.property_id}>
+          {properties?.length ? (
+            properties.map((p) => (
               <TableRow key={p.property_id} className="hover:bg-neutral-50">
                 {columns.map((col) => (
                   <TableCell key={col.key} className={col.className}>
@@ -171,10 +173,8 @@ export default function DashboardTable({
                   </TableCell>
                 ))}
               </TableRow>
-              {/* deposit modal */}
-              {isOpen && Modal && <Modal property_id={p.property_id} />}
-            </React.Fragment>
-          )) || (
+            ))
+          ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="text-center">
                 No properties found
@@ -183,6 +183,10 @@ export default function DashboardTable({
           )}
         </TableBody>
       </Table>
+
+      {isOpen && Modal && selectedId !== null && (
+        <Modal property_id={selectedId} />
+      )}
     </>
   );
 }
