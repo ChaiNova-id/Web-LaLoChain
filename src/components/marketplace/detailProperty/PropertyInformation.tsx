@@ -8,11 +8,52 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ArrowRight, MapPin, ArrowBigRightDash } from "lucide-react";
 
 import { useState } from "react";
+import { usePropertyOnchain } from "@/hooks/onchain/usePropertyOnchain";
+import { formatTimestamp } from "@/lib/utils";
+import toast from "react-hot-toast";
+import { useHotelTokenizationStore } from "@/stores/hotelTokenizationStore";
+import { CircleNotch } from "@phosphor-icons/react";
+import { useWalletStore } from "@/stores/walletStore";
+import { useProperty } from "@/hooks/api/useProperty";
 
-const PropertyInformation = () => {
-  const [llotValue, setLlotValue] = useState(4000);
+interface PropertyInformationProps {
+  property_id: string;
+}
+
+const PropertyInformation = ({ property_id }: PropertyInformationProps) => {
+  const { data: propertyData } = usePropertyOnchain(property_id);
+  const { data: property } = useProperty(property_id);
+  const availableTokenCount = Number(propertyData?.availableTokens);
+  const rate = Number(propertyData?.rate);
+
+  const [llotValue, setLlotValue] = useState(0);
   const [usdcValue, setUsdcValue] = useState(llotValue * 2);
-  const rate = 2; // Change this to the actual rate
+
+  const { handleBuyLaLoTokens } = useHotelTokenizationStore();
+  const { setSpender, setValue, handleApprove } = useWalletStore();
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const handleBuyToken = async () => {
+    setSpender(propertyData?.vaultAddress || "");
+    setValue(llotValue.toString());
+    try {
+      setIsLoading(true);
+      await toast.promise(handleApprove(), {
+        loading: "Approving...",
+        error: "Approval failed.",
+      });
+      await toast.promise(handleBuyLaLoTokens(llotValue.toString()), {
+        loading: "Buying...",
+        error: "Purchase failed.",
+      });
+    } catch (error) {
+      console.error("Error buying token:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-row justify-center gap-[100px] py-8">
       {/* Left column: gambar + back button */}
@@ -36,30 +77,40 @@ const PropertyInformation = () => {
       {/* Right column: detail */}
       <div className="w-fit space-y-5 flex flex-col justify-center">
         <div>
-          <h1 className="heading-3 text-brand-700">Villa One Hyde Park</h1>
+          <h1 className="heading-3 text-brand-700">{property?.name}</h1>
           <div className="flex items-center gap-2 mt-5 text-neutral-500">
-            <MapPin size={20} /> 2050 Bloomingdale Ave
+            <MapPin size={20} /> {property?.location}
           </div>
         </div>
 
         <p className="text-neutral-950 leading-relaxed">
-          Enchanting three bedroom, three bath home with spacious one bedroom,
-          one bath cabana, in-laws quarters. Charming living area features
-          fireplace and fabulous art deco details. …
+          {property?.description}
         </p>
 
         <div className="flex flex-row gap-6 items-start justify-between">
           <div className="">
             <div className="heading-6 text-neutral-900">
-              Available: <span className="text-brand-500">4,000 LLoT</span>
+              Available:{" "}
+              <span className="text-brand-500">
+                {propertyData?.availableTokens}
+              </span>
             </div>
 
             <div className="heading-9 text-neutral-900">
-              Rate: <span className="text-brand-500">2 x</span>
+              Rate: <span className="text-brand-500">{rate} x</span>
             </div>
 
             <div className="heading-9 text-neutral-900">
-              Duration: <span className="text-brand-500">12 Months</span>
+              Duration:{" "}
+              <span className="text-brand-500">
+                {propertyData?.month} Months
+              </span>
+            </div>
+            <div className="heading-9 text-neutral-900">
+              Auction End:{" "}
+              <span className="text-brand-500">
+                {formatTimestamp(Number(propertyData?.auctionEndDate))}
+              </span>
             </div>
           </div>
 
@@ -82,11 +133,17 @@ const PropertyInformation = () => {
                 Buy LLoT
               </Label>
               <Input
+                max={availableTokenCount}
                 id="llot-amount"
                 onChange={(e) => {
                   const value = Number(e.target.value);
+                  if (value > availableTokenCount) {
+                    toast.error(
+                      `Cannot buy more than ${availableTokenCount} LLo`
+                    );
+                  }
                   setLlotValue(value);
-                  setUsdcValue(value * rate);
+                  setUsdcValue(value * 2);
                 }}
                 type="number"
                 defaultValue={llotValue}
@@ -96,7 +153,7 @@ const PropertyInformation = () => {
             <ArrowBigRightDash className="w-[36px] h-[36px]" />
             <div className="px-2 py-[10px] space-y-3 bg-brand-100 rounded-[8px] ">
               <Label htmlFor="llot-amount" className="heading-9 text-brand-500">
-                Get USDC
+                Get USDCs
               </Label>
               <Input
                 id="llot-amount"
@@ -110,8 +167,20 @@ const PropertyInformation = () => {
           <Button
             variant="primaryBrand"
             className="w-full mt-4 p-7 cursor-pointer"
+            onClick={handleBuyToken}
+            disabled={
+              llotValue === 0 || llotValue > availableTokenCount || isLoading
+            }
           >
-            Buy Token <ArrowRight />
+            {isLoading ? (
+              <div className="flex items-center justify-center">
+                <CircleNotch className="animate-spin" />
+              </div>
+            ) : (
+              <>
+                Buy Token <ArrowRight />
+              </>
+            )}
           </Button>
         </div>
       </div>
