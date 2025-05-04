@@ -76,7 +76,7 @@ export default function DashboardTable({
       render: (p: PropertyOwner | PropertyInvestor) => (
         <span className="caption-3 text-neutral-950">
           {type === "owner" && "rate" in p
-            ? `${p.rate} %`
+            ? `${p.rate} x`
             : "tokensOwn" in p
             ? `${p.tokensOwn} LLoT`
             : null}
