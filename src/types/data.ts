@@ -12,3 +12,7 @@ export type AddPropertyFormData = {
 export type OwnerDepositUSDCFormData = {
   amount: string;
 };
+
+export type InvestorWithdrawUSDCFormData = {
+  amount: string;
+};
