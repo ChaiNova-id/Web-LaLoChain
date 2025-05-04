@@ -29,7 +29,7 @@ const PropertyInformation = ({ property_id }: PropertyInformationProps) => {
   const [llotValue, setLlotValue] = useState(0);
   const [usdcValue, setUsdcValue] = useState(0);
 
-  const { handleBuyLaLoTokens } = useHotelTokenizationStore();
+  const { handleBuyLaLoTokens, setHotelId } = useHotelTokenizationStore();
   const { setSpender, setValue, handleApprove } = useWalletStore();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -37,6 +37,7 @@ const PropertyInformation = ({ property_id }: PropertyInformationProps) => {
   const handleBuyToken = async () => {
     setSpender(propertyData?.vaultAddress || "");
     setValue(llotValue.toString());
+    setHotelId(property_id);
     try {
       setIsLoading(true);
       await toast.promise(handleApprove(), {
