@@ -19,6 +19,7 @@ import { Info } from "lucide-react";
 import { PropertyOwner, PropertyInvestor } from "@/types/dashboardTypes";
 
 import { useModalStore } from "@/stores/modalStore";
+import React from "react";
 
 export default function DashboardTable({
   properties,
@@ -162,8 +163,8 @@ export default function DashboardTable({
         </TableHeader>
         <TableBody>
           {properties?.map((p) => (
-            <>
-              <TableRow key={p.id} className="hover:bg-neutral-50">
+            <React.Fragment key={p.property_id}>
+              <TableRow key={p.property_id} className="hover:bg-neutral-50">
                 {columns.map((col) => (
                   <TableCell key={col.key} className={col.className}>
                     {col.render(p)}
@@ -172,7 +173,7 @@ export default function DashboardTable({
               </TableRow>
               {/* deposit modal */}
               {isOpen && Modal && <Modal property_id={p.property_id} />}
-            </>
+            </React.Fragment>
           )) || (
             <TableRow>
               <TableCell colSpan={columns.length} className="text-center">
