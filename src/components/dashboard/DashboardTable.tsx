@@ -177,7 +177,9 @@ export default function DashboardTable({
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="text-center">
-                No properties found
+                <p className="heading-4 text-brand-500 p-10">
+                  No properties found
+                </p>
               </TableCell>
             </TableRow>
           )}

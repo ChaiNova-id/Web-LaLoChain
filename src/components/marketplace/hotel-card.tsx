@@ -3,24 +3,20 @@
 import { MapPin } from "@phosphor-icons/react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePropertyOnchain } from "@/hooks/onchain/usePropertyOnchain";
 
 export interface HotelCardProps {
   id: string;
   location: string;
-  yieldRate: string;
   image: string;
   propertyName: string;
-  tokenValue: string;
 }
 
-const HotelCard = ({
-  id,
-  location,
-  image,
-  yieldRate,
-  propertyName,
-  tokenValue,
-}: HotelCardProps) => {
+const HotelCard = ({ id, location, image, propertyName }: HotelCardProps) => {
+  const { data: onchainData, isLoading } = usePropertyOnchain(id);
+
+  if (isLoading) return <HotelCardSkeleton />;
+
   return (
     <div className="w-[15.625vw] aspect-[350/454] bg-neutral-50 flex flex-col justify-between rounded-[.4vw] border-1 overflow-hidden">
       <div className="w-full h-[67%] relative">
@@ -36,8 +32,8 @@ const HotelCard = ({
         </div>
         <div className="w-full h-fit flex justify-between items-center">
           <div className="flex justify-start items-center gap-x-2 heading-9 text-black">
-            <span>{tokenValue} LLoT</span>
-            <span>{yieldRate}x Rate</span>
+            <span>{onchainData?.availableTokens} LLoT</span>
+            <span>{onchainData?.rate}x Rate</span>
           </div>
           <Link
             href={`/marketplace/${id}`}
@@ -52,4 +48,23 @@ const HotelCard = ({
     </div>
   );
 };
+
+const HotelCardSkeleton = () => {
+  return (
+    <div className="w-[15.625vw] aspect-[350/454] bg-neutral-100 animate-pulse rounded-[.4vw] border overflow-hidden">
+      <div className="w-full h-[67%] bg-neutral-300" />
+      <div className="w-full h-[33%] p-[14px] flex flex-col justify-between">
+        <div className="space-y-2">
+          <div className="h-4 bg-neutral-300 rounded w-3/4" />
+          <div className="h-3 bg-neutral-300 rounded w-1/2" />
+        </div>
+        <div className="flex justify-between items-center mt-3">
+          <div className="h-4 bg-neutral-300 rounded w-2/3" />
+          <div className="h-6 bg-neutral-300 rounded w-[4.5vw]" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default HotelCard;

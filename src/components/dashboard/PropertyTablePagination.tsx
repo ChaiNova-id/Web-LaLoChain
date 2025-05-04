@@ -13,6 +13,8 @@ interface PropertyTablePaginationProps {
   setEndIndex: React.Dispatch<React.SetStateAction<number>>;
   totalRows: number;
   pageSize: number;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const PropertyTablePagination = ({
@@ -22,23 +24,29 @@ const PropertyTablePagination = ({
   setEndIndex,
   totalRows,
   pageSize,
+  currentPage,
+  setCurrentPage,
 }: PropertyTablePaginationProps) => {
   const canPrev = startIndex > 0;
   const canNext = endIndex < totalRows;
 
   const handlePrev = () => {
     if (!canPrev) return;
-    setStartIndex((prev: number) => Math.max(0, prev - pageSize));
-    setEndIndex((prev: number) => Math.max(pageSize, prev - pageSize));
+    const newPage = currentPage - 1;
+    setCurrentPage(newPage);
+    setStartIndex((newPage - 1) * pageSize);
+    setEndIndex(newPage * pageSize);
   };
 
   const handleNext = () => {
     if (!canNext) return;
-    setStartIndex((prev: number) => prev + pageSize);
-    setEndIndex((prev: number) => Math.min(totalRows, prev + pageSize));
+    const newPage = currentPage + 1;
+    setCurrentPage(newPage);
+    setStartIndex((newPage - 1) * pageSize);
+    setEndIndex(Math.min(newPage * pageSize, totalRows));
   };
   return (
-    <div className="flex items-center justify-between cursor-default">
+    <div className="w-full flex items-center justify-between cursor-default">
       {/* Row count */}
       <div className="text-sm text-zinc-500">
         {`${startIndex + 1}–${Math.min(
@@ -63,7 +71,7 @@ const PropertyTablePagination = ({
           {Array.from({ length: Math.ceil(totalRows / pageSize) }).map(
             (_, index) => {
               const pageNumber = index + 1;
-              const isCurrentPage = index === Math.floor(startIndex / pageSize);
+              const isCurrentPage = pageNumber === currentPage;
 
               return (
                 <PaginationItem key={index}>
@@ -74,8 +82,9 @@ const PropertyTablePagination = ({
                         : "hover:bg-accent hover:text-accent-foreground"
                     }`}
                     onClick={() => {
-                      setStartIndex(index * pageSize);
-                      setEndIndex(Math.min((index + 1) * pageSize, totalRows));
+                      setCurrentPage(pageNumber);
+                      setStartIndex((pageNumber - 1) * pageSize);
+                      setEndIndex(Math.min(pageNumber * pageSize, totalRows));
                     }}
                   >
                     {pageNumber}

@@ -8,7 +8,7 @@ export async function GET(
   req: NextRequest,
   context: { params: { wallet_id: string } }
 ) {
-  const { wallet_id } = context.params!;
+  const { wallet_id } = await context.params!;
   const { searchParams } = new URL(req.url);
   const page = parseInt(searchParams.get("page") ?? "1", 10);
   const pageSize = parseInt(searchParams.get("pageSize") ?? "10", 10);
@@ -20,7 +20,16 @@ export async function GET(
     include: { list_address: true },
   });
   if (!investor) {
-    return NextResponse.json({ error: "Investor not found" }, { status: 404 });
+    return NextResponse.json({
+      investor: wallet_id,
+      data: [],
+      pagination: {
+        page,
+        pageSize,
+        total: 0,
+        totalPages: 0,
+      },
+    });
   }
 
   // 2. Collect property_ids from investor's list_address

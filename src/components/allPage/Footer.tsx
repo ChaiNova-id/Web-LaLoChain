@@ -8,7 +8,7 @@ const Footer = () => {
 
   return (
     <div
-      className={`w-[1920px] self-stretch px-[60px] py-5 bg-brand-800 border-t border-brand-100 inline-flex justify-center items-center gap-[60px] overflow-hidden ${
+      className={`w-full self-stretch px-[60px] py-5 bg-brand-800 border-t border-brand-100 inline-flex justify-center items-center gap-[60px] overflow-hidden ${
         isFixedPosition ? "fixed bottom-0 left-0" : ""
       }`}
     >

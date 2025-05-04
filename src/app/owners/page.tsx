@@ -5,7 +5,6 @@ import PropertyTablePagination from "@/components/dashboard/PropertyTablePaginat
 import TitleDashboard from "@/components/dashboard/TitleDashboard";
 import SearchBar from "@/components/allPage/SearchBar";
 import ModalAddProperty from "@/components/allPage/Modal/ModalAddProperty";
-import ModalWithdraw from "@/components/allPage/Modal/ModalWithdraw";
 
 import { useModalStore } from "@/stores/modalStore";
 import { useEffect, useState } from "react";
@@ -15,17 +14,22 @@ import { Property } from "@prisma/client";
 import { PropertyOwner } from "@/types/dashboardTypes";
 import { useHotelTokenizationStore } from "@/stores/hotelTokenizationStore";
 import { CircleNotch } from "@phosphor-icons/react";
+import ModalDeposit from "@/components/allPage/Modal/ModalDeposit";
 
 export default function PropertyDashboard() {
+  const pageSize = 10;
   const { account } = useWalletStore();
-  const { data: properties, isLoading } = usePropertiesByWallet(account);
+  const [currentPage, setCurrentPage] = useState(1);
+  const { data: properties, isLoading } = usePropertiesByWallet(
+    account,
+    currentPage,
+    pageSize
+  );
 
   const { openModalAddProperty, isOpenAddProperty } = useModalStore();
 
   const [startIndex, setStartIndex] = useState(0);
-  const [endIndex, setEndIndex] = useState(
-    properties?.pagination.pageSize || 10
-  );
+  const [endIndex, setEndIndex] = useState(pageSize);
 
   const [enrichedProperties, setEnrichedProperties] = useState<PropertyOwner[]>(
     []
@@ -71,7 +75,7 @@ export default function PropertyDashboard() {
             type="owner"
             properties={enrichedProperties}
             Modal={({ property_id }) => (
-              <ModalWithdraw property_id={String(property_id)} />
+              <ModalDeposit property_id={String(property_id)} />
             )}
           />
         )}
@@ -83,7 +87,9 @@ export default function PropertyDashboard() {
           endIndex={endIndex}
           setEndIndex={setEndIndex}
           totalRows={properties?.pagination.total || 0}
-          pageSize={properties?.pagination.pageSize || 10}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
         />
       </div>
       {isOpenAddProperty && <ModalAddProperty />}

@@ -51,6 +51,7 @@ const ModalWrapper = ({
   addModalTitle,
   addModalDescription,
   isLoading,
+  disableSubmit,
 }: AddPropertyFormProps) => {
   const closeModal = useModalStore((state) => state.closeModal);
   return (
@@ -90,7 +91,7 @@ const ModalWrapper = ({
               </Button>
               <Button
                 type="submit"
-                disabled={isLoading}
+                disabled={isLoading || disableSubmit}
                 variant="default"
                 className="bg-success-600 hover:bg-success-700 body-2 px-[50px] py-[25px] cursor-pointer"
               >
