@@ -32,8 +32,6 @@ const ModalDeposit = ({ property_id }: { property_id: string }) => {
     },
   });
   const handleSubmit = async (data: OwnerDepositUSDCFormData) => {
-    console.log("Form data:", data);
-    console.log("Submitted:", propertyId);
     await handleGetVaultAddress();
     setHotelId(propertyId);
     const vaultAddress = useHotelTokenizationStore.getState().vaultAddress;
