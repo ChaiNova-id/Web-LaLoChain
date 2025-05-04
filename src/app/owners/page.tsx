@@ -121,7 +121,9 @@ const fetchOnchainProperties = async (
     result.push({
       ...property,
       rate: Math.floor(Number(rate) * 1e-18 * 100) / 100,
-      availableTokens: Number(availableTokens),
+      availableTokens: Math.floor(
+        Number(availableTokens) / (Math.floor(Number(rate) * 1e-18 * 100) / 100)
+      ),
       remainingDebt: Number(remainingPromisedRevenues),
       status: "Verified",
     });

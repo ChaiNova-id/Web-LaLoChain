@@ -36,6 +36,9 @@ const PropertyInformation = ({ property_id }: PropertyInformationProps) => {
   const { setSpender, setValue, handleApprove } = useWalletStore();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const availableTokens = Math.floor(
+    (propertyData?.availableTokens || 0) / rate
+  );
 
   const handleBuyToken = async () => {
     setSpender(propertyData?.vaultAddress || "");
@@ -99,9 +102,7 @@ const PropertyInformation = ({ property_id }: PropertyInformationProps) => {
           <div className="">
             <div className="heading-6 text-neutral-900">
               Available:{" "}
-              <span className="text-brand-500">
-                {(propertyData?.availableTokens || 0) / rate} LLoT
-              </span>
+              <span className="text-brand-500">{availableTokens} LLoT</span>
             </div>
 
             <div className="heading-9 text-neutral-900">
@@ -145,10 +146,8 @@ const PropertyInformation = ({ property_id }: PropertyInformationProps) => {
                 id="llot-amount"
                 onChange={(e) => {
                   const value = Number(e.target.value);
-                  if (value > availableTokenCount) {
-                    toast.error(
-                      `Cannot buy more than ${availableTokenCount} LLo`
-                    );
+                  if (value > availableTokens) {
+                    toast.error(`Cannot buy more than ${availableTokens} LLo`);
                   }
                   setLlotValue(value);
                   setUsdcValue(Math.floor(value * rate));
@@ -177,7 +176,7 @@ const PropertyInformation = ({ property_id }: PropertyInformationProps) => {
             className="w-full mt-4 p-7 cursor-pointer"
             onClick={handleBuyToken}
             disabled={
-              llotValue === 0 || llotValue > availableTokenCount || isLoading
+              llotValue === 0 || llotValue > availableTokens || isLoading
             }
           >
             {isLoading ? (

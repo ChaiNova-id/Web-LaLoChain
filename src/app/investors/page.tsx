@@ -105,12 +105,14 @@ const fetchOnchainProperties = async (
     await handleGetTransferLimit();
     await handleGetCollectedRevenues();
 
-    const { currentTokens, collectedRevenues, transferLimit } =
+    const { currentTokens, collectedRevenues, transferLimit, rate } =
       useHotelTokenizationStore.getState();
 
     result.push({
       ...property,
-      tokensOwn: Number(currentTokens),
+      tokensOwn: Math.floor(
+        Number(currentTokens) / (Math.floor(Number(rate) * 1e-18 * 100) / 100)
+      ),
       withdrawn: Number(collectedRevenues),
       withdrawLimit: Number(transferLimit),
       status: "Verified",

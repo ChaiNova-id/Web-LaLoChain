@@ -14,6 +14,7 @@ export interface HotelCardProps {
 
 const HotelCard = ({ id, location, image, propertyName }: HotelCardProps) => {
   const { data: onchainData, isLoading } = usePropertyOnchain(id);
+  const rate = Number(onchainData?.rate);
 
   if (isLoading) return <HotelCardSkeleton />;
 
@@ -32,7 +33,9 @@ const HotelCard = ({ id, location, image, propertyName }: HotelCardProps) => {
         </div>
         <div className="w-full h-fit flex justify-between items-center">
           <div className="flex justify-start items-center gap-x-2 heading-9 text-black">
-            <span>{onchainData?.availableTokens} LLoT</span>
+            <span>
+              {Math.floor((onchainData?.availableTokens || 0) / rate)} LLoT
+            </span>
             <span>{onchainData?.rate}x Rate</span>
           </div>
           <Link
