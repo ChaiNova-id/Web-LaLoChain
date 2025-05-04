@@ -49,7 +49,7 @@ const ModalDeposit = ({ property_id }: { property_id: string }) => {
       });
 
       queryClient.invalidateQueries({
-        queryKey: ["properties", account],
+        queryKey: ["properties", account, 1, 10],
       });
     } catch (error) {
       console.error("Error in handleSubmit:", error);
