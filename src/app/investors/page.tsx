@@ -4,11 +4,11 @@ import OwnerDashboardTable from "@/components/dashboard/DashboardTable";
 import PropertyTablePagination from "@/components/dashboard/PropertyTablePagination";
 import TitleDashboard from "@/components/dashboard/TitleDashboard";
 import SearchBar from "@/components/allPage/SearchBar";
-import ModalDeposit from "@/components/allPage/Modal/ModalDeposit";
 
 import { investorProperties } from "@/dummy/investorPropertyData";
 
 import { useState } from "react";
+import ModalWithdraw from "@/components/allPage/Modal/ModalWithdraw";
 
 export default function InvestorDashboard() {
   const pageSize = 3;
@@ -28,7 +28,7 @@ export default function InvestorDashboard() {
         type="investor"
         properties={investorProperties.slice(startIndex, endIndex)}
         Modal={({ property_id }) => (
-          <ModalDeposit property_id={String(property_id)} />
+          <ModalWithdraw property_id={String(property_id)} />
         )}
       />
 
