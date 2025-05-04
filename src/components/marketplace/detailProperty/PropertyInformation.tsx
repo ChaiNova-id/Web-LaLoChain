@@ -24,10 +24,10 @@ const PropertyInformation = ({ property_id }: PropertyInformationProps) => {
   const { data: propertyData } = usePropertyOnchain(property_id);
   const { data: property } = useProperty(property_id);
   const availableTokenCount = Number(propertyData?.availableTokens);
-  const rate = Number(propertyData?.rate);
+  const rate = Number(propertyData?.rate); 
 
   const [llotValue, setLlotValue] = useState(0);
-  const [usdcValue, setUsdcValue] = useState(llotValue * 2);
+  const [usdcValue, setUsdcValue] = useState(0);
 
   const { handleBuyLaLoTokens } = useHotelTokenizationStore();
   const { setSpender, setValue, handleApprove } = useWalletStore();
@@ -143,7 +143,7 @@ const PropertyInformation = ({ property_id }: PropertyInformationProps) => {
                     );
                   }
                   setLlotValue(value);
-                  setUsdcValue(value * 2);
+                  setUsdcValue(value * rate);
                 }}
                 type="number"
                 defaultValue={llotValue}
@@ -159,7 +159,7 @@ const PropertyInformation = ({ property_id }: PropertyInformationProps) => {
                 id="llot-amount"
                 type="number"
                 disabled={true}
-                defaultValue={usdcValue}
+                value={usdcValue}
                 className="heading-6 w-[140px] text-neutral-950"
               />
             </div>
