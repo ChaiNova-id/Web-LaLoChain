@@ -1,6 +1,11 @@
+"use client";
+
+import { useState } from "react";
+
 import FilterRow from "@/components/marketplace/filter-row";
 import SearchBar from "@/components/allPage/SearchBar";
 import HotelCard, { HotelCardProps } from "@/components/marketplace/hotel-card";
+import PropertyTablePagination from "@/components/dashboard/PropertyTablePagination";
 
 const hotelData: HotelCardProps[] = [
   {
@@ -43,9 +48,53 @@ const hotelData: HotelCardProps[] = [
     propertyName: "Table Mountain Lodge",
     tokenValue: "260",
   },
+  {
+    id: "6",
+    location: "Rio de Janeiro, Brazil",
+    yieldRate: "1.9",
+    image: "/images/testing.png",
+    propertyName: "Copacabana Beach Resort",
+    tokenValue: "290",
+  },
+  {
+    id: "7",
+    location: "Dubai, UAE",
+    yieldRate: "2.1",
+    image: "/images/testing.png",
+    propertyName: "Burj Al Arab Suites",
+    tokenValue: "320",
+  },
+  {
+    id: "8",
+    location: "London, UK",
+    yieldRate: "1.4",
+    image: "/images/testing.png",
+    propertyName: "Buckingham Palace Hotel",
+    tokenValue: "240",
+  },
+  {
+    id: "9",
+    location: "Barcelona, Spain",
+    yieldRate: "1.5",
+    image: "/images/testing.png",
+    propertyName: "Sagrada Familia Suites",
+    tokenValue: "250",
+  },
+  {
+    id: "10",
+    location: "Rome, Italy",
+    yieldRate: "2.0",
+    image: "/images/testing.png",
+    propertyName: "Colosseum Inn",
+    tokenValue: "300",
+  },
 ];
 
 export default function MarketPlacePage() {
+  const pageSize = 8;
+  const totalRows = hotelData?.length || 0;
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(pageSize);
   return (
     <div className="flex flex-col items-center justify-start w-full min-h-screen gap-y-[3vw] bg-neutral-50 px-20 py-10">
       <div className="flex flex-col items-center gap-y-4">
@@ -60,7 +109,7 @@ export default function MarketPlacePage() {
       <SearchBar />
       <FilterRow />
       <div className="grid grid-cols-4 gap-5 w-full">
-        {hotelData.map((hotel, index) => (
+        {hotelData.slice(startIndex, endIndex).map((hotel, index) => (
           <div key={index} className="flex justify-center">
             <HotelCard
               id={hotel.id}
@@ -73,6 +122,15 @@ export default function MarketPlacePage() {
           </div>
         ))}
       </div>
+      {/* Pagination + Row Count */}
+      <PropertyTablePagination
+        startIndex={startIndex}
+        setStartIndex={setStartIndex}
+        endIndex={endIndex}
+        setEndIndex={setEndIndex}
+        totalRows={totalRows}
+        pageSize={pageSize}
+      />
     </div>
   );
 }

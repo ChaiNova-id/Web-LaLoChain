@@ -38,7 +38,7 @@ const PropertyTablePagination = ({
     setEndIndex((prev: number) => Math.min(totalRows, prev + pageSize));
   };
   return (
-    <div className="flex items-center justify-between cursor-default">
+    <div className="w-full flex items-center justify-between cursor-default">
       {/* Row count */}
       <div className="text-sm text-zinc-500">
         {`${startIndex + 1}–${Math.min(
