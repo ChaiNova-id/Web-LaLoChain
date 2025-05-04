@@ -78,7 +78,7 @@ export default function DashboardTable({
           {type === "owner" && "rate" in p
             ? `${p.rate} x`
             : "tokensOwn" in p
-            ? `${p.tokensOwn} LLoT`
+            ? `${p.tokensOwn} USDC`
             : null}
         </span>
       ),
