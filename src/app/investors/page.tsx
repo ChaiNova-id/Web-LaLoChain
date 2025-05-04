@@ -110,12 +110,9 @@ const fetchOnchainProperties = async (
 
     result.push({
       ...property,
-      // tokensOwn: Number(currentTokens),
-      // withdrawn: Number(collectedRevenues),
-      // withdrawLimit: Number(transferLimit),
-      tokensOwn: 0,
-      withdrawn: 0,
-      withdrawLimit: 0,
+      tokensOwn: Number(currentTokens),
+      withdrawn: Number(collectedRevenues),
+      withdrawLimit: Number(transferLimit),
       status: "Verified",
     });
   }
