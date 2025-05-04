@@ -1,12 +1,12 @@
+import { ReactNode } from "react";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 
-export interface AddPropertyFormProps<TFieldValues extends FieldValues> {
-  // useForm hook from react-hook-form
-  form: UseFormReturn<TFieldValues>; // Using proper type from react-hook-form
-  onSubmit: () => void;
-  children: React.ReactNode;
-  addModalTitle?: string;
+export interface ModalWrapperProps<T extends FieldValues = FieldValues> {
+  form: UseFormReturn<T>;
+  isLoading: boolean;
+  onSubmit: (data: T) => void;
+  addModalTitle: string;
   addModalDescription?: string;
-  isLoading?: boolean;
   disableSubmit?: boolean;
+  children: ReactNode;
 }

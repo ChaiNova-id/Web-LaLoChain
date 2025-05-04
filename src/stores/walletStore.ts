@@ -110,7 +110,8 @@ export const useWalletStore = create<WalletState>((set, get) => ({
       localStorage.setItem("isWalletConnected", "true");
       toast.success("Wallet connected");
 
-      window.ethereum.on("accountsChanged", (accounts: string[]) => {
+      window.ethereum.on("accountsChanged", (...args: unknown[]) => {
+        const accounts = args[0] as string[];
         if (accounts.length > 0) {
           set({ account: accounts[0] });
           toast("Account changed!");

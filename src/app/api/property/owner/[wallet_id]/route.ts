@@ -5,9 +5,9 @@ export const dynamic = "force-dynamic";
 
 export async function GET(
   req: NextRequest,
-  context: { params: { wallet_id: string } }
+  { params }: { params: Promise<{ wallet_id: string }> }
 ) {
-  const { wallet_id } = await context.params;
+  const { wallet_id } = await params;
   const { searchParams } = new URL(req.url);
   const page = parseInt(searchParams.get("page") || "1", 10);
   const pageSize = parseInt(searchParams.get("pageSize") || "10", 10);
