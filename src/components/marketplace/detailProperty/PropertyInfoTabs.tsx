@@ -21,7 +21,7 @@ const PropertyInfoTabs = () => {
 
       {/* Financials panel */}
       <TabsContent value="financials" className="pt-2">
-        <div className="flex flex-col text-neutral-900">
+        <div className="flex flex-col text-neutral-900 h-[275px]">
           <ul className="list-disc pl-5 space-y-5">
             <li className="caption-2">
               <span className="font-medium">2024 Net Operating Income:</span>{" "}
@@ -45,7 +45,7 @@ const PropertyInfoTabs = () => {
 
       {/* Verification panel */}
       <TabsContent value="verification" className="pt-2 mb-15">
-        <div className="flex flex-col space-y-5">
+        <div className="flex flex-col space-y-5 h-[275px]">
           {/* Underwriter address badge */}
           <Badge
             variant="secondary"
