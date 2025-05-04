@@ -18,11 +18,10 @@ import toast from "react-hot-toast";
 import { useModalStore } from "@/stores/modalStore";
 import { useWalletStore } from "@/stores/walletStore";
 import { useCreateProperty } from "@/hooks/api/useCreateProperty";
-import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { usePropertiesByWallet } from "@/hooks/api/usePropertiesByWallet";
 
 const ModalAddProperty = () => {
-  const queryClient = useQueryClient();
   const {
     setHotelName,
     setUsdcPrice,
@@ -38,6 +37,7 @@ const ModalAddProperty = () => {
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [revenueUploaded, setRevenueUploaded] = useState<number>(0);
+  const { refetch } = usePropertiesByWallet(account, 1, 10);
 
   const form = useForm<AddPropertyFormData>({
     defaultValues: {
@@ -108,9 +108,7 @@ const ModalAddProperty = () => {
         property_id: nextHotelId || "",
       });
 
-      queryClient.invalidateQueries({
-        queryKey: ["properties", account, 1, 10],
-      });
+      await refetch();
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {
@@ -186,9 +184,9 @@ const ModalAddProperty = () => {
                 <Input placeholder="Enter total revenue" {...field} />
               </FormControl>
               {/* {revenueUploaded > 0 && ( */}
-                <FormMessage>
-                  {`Revenue max: ${revenueUploaded} USDC`}
-                </FormMessage>
+              <FormMessage>
+                {`Revenue max: ${revenueUploaded} USDC`}
+              </FormMessage>
               {/* )} */}
             </FormItem>
           )}

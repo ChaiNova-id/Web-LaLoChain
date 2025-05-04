@@ -13,30 +13,34 @@ export const usePropertyOnchain = (property_id: string) => {
         availableTokens: number;
         auctionEndDate: string;
         month: number;
+        vaultAddress: string;
       } = {
         rate: 0,
         availableTokens: 0,
         auctionEndDate: "",
         month: 0,
+        vaultAddress: "",
       };
 
       await getterContract({
         contractAddress: contract.address,
         abi: contract.abi,
-        callback: async (contractInstance) => {
-          const [rate, availableTokens, auctionEndDate, month] =
+        callback: async (instance) => {
+          const [rate, availableTokens, auctionEndDate, month, vaultAddress] =
             await Promise.all([
-              contractInstance.getRate(property_id),
-              contractInstance.getAvailableTokens(property_id),
-              contractInstance.getAuctionEndDate(property_id),
-              contractInstance.getMonthTest(property_id),
+              instance.getRate(property_id),
+              instance.getAvailableTokens(property_id),
+              instance.getAuctionEndDate(property_id),
+              instance.getMonthTest(property_id),
+              instance.getVaultAddress(property_id),
             ]);
 
           result = {
-            rate: Number(rate),
+            rate: Math.floor(Number(rate) * 1e-18 * 100) / 100,
             availableTokens: Number(availableTokens),
             auctionEndDate: auctionEndDate.toString(),
             month: Number(month),
+            vaultAddress: vaultAddress.toString(),
           };
         },
       });

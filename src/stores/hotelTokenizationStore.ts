@@ -218,10 +218,7 @@ export const useHotelTokenizationStore = create<HotelTokenizationState>(
         abi,
         callback: async (contract) => {
           const rate = await contract.getRate(hotelId);
-          const ratio = await contract.getRatio(hotelId);
-          const realRate =
-            parseFloat(rate.toString()) / parseFloat(ratio.toString());
-          set({ rate: realRate });
+          set({ rate: rate.toString() });
         },
       });
     },

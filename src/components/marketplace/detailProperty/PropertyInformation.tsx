@@ -24,7 +24,7 @@ const PropertyInformation = ({ property_id }: PropertyInformationProps) => {
   const { data: propertyData } = usePropertyOnchain(property_id);
   const { data: property } = useProperty(property_id);
   const availableTokenCount = Number(propertyData?.availableTokens);
-  const rate = Number(propertyData?.rate); 
+  const rate = Number(propertyData?.rate);
 
   const [llotValue, setLlotValue] = useState(0);
   const [usdcValue, setUsdcValue] = useState(0);
@@ -143,7 +143,7 @@ const PropertyInformation = ({ property_id }: PropertyInformationProps) => {
                     );
                   }
                   setLlotValue(value);
-                  setUsdcValue(value * rate);
+                  setUsdcValue(Math.floor(value * rate));
                 }}
                 type="number"
                 defaultValue={llotValue}

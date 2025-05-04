@@ -16,6 +16,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useWalletStore } from "@/stores/walletStore";
 import { useModalStore } from "@/stores/modalStore";
 import toast from "react-hot-toast";
+import { usePropertiesByWallet } from "@/hooks/api/usePropertiesByWallet";
 
 const ModalDeposit = ({ property_id }: { property_id: string }) => {
   const queryClient = useQueryClient();
@@ -25,6 +26,7 @@ const ModalDeposit = ({ property_id }: { property_id: string }) => {
   const { setHotelId, handleOwnerDepositUSDC, handleGetVaultAddress } =
     useHotelTokenizationStore();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const { refetch } = usePropertiesByWallet(account, 1, 10);
 
   const form = useForm<OwnerDepositUSDCFormData>({
     defaultValues: {
@@ -48,9 +50,7 @@ const ModalDeposit = ({ property_id }: { property_id: string }) => {
         error: "Deposit failed.",
       });
 
-      queryClient.invalidateQueries({
-        queryKey: ["properties", account, 1, 10],
-      });
+      await refetch();
       queryClient.invalidateQueries({
         queryKey: ["propertyOnchain", propertyId],
       });
