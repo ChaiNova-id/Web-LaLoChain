@@ -1,6 +1,6 @@
 import { useLoadingStore } from "@/stores/loadingStore";
 import { useWalletStore } from "@/stores/walletStore";
-import { Contract } from "ethers";
+import { Contract, Interface, InterfaceAbi } from "ethers";
 import toast from "react-hot-toast";
 
 export const txConfig = {
@@ -9,7 +9,7 @@ export const txConfig = {
 
 interface GetContractProps {
   contractAddress: string;
-  abi: any;
+  abi: Interface | InterfaceAbi;
   callback: (contract: Contract) => Promise<void>;
 }
 
