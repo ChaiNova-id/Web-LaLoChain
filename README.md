@@ -1,8 +1,8 @@
 # Deploy Link
-[text](https://web-la-lo-chain.vercel.app/)
+[Deployed Link](https://web-la-lo-chain.vercel.app/)
 
 # Docs
-[text](https://chainova.gitbook.io/lalochain-docs/)
+[Docs Link](https://chainova.gitbook.io/lalochain-docs/)
 
 # 🏨 LaLoChain
 
