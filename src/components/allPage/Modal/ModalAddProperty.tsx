@@ -243,7 +243,7 @@ const ModalAddProperty = () => {
           name="auctionDuration"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Auction Duration</FormLabel>
+              <FormLabel>Auction Duration (days)</FormLabel>
               <FormControl>
                 <Input placeholder="Enter your auction durations" {...field} />
               </FormControl>
