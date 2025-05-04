@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Deploy Link
+[text](https://web-la-lo-chain.vercel.app/)
 
-## Getting Started
+# Docs
+[text](https://chainova.gitbook.io/lalochain-docs/)
 
-First, run the development server:
+# 🏨 LaLoChain
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+LaLoChain is a decentralized real-world asset (RWA) tokenization platform focused on **landlord-tenancy** revenue, particularly for properties like hotels and rentals. It enables property owners to tokenize their **future revenue streams**, allowing investors to buy in and earn passive income, while leveraging AVS (Actively Validated Services) and underwriters for reliability and guarantees.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 🏘️ Tokenize real estate revenue (e.g. $60K/year hotel revenue)
+- 💰 Raise upfront capital (e.g. $50K) by selling future revenue as tokens
+- 🔐 Underwriter-backed guarantees for:
+  - Full repayment (monthly: e.g. $5K/month for 12 months)
+  - Token sellout before revenue return cycle begins
+- ⚙️ Integrated with AVS to actively validate on-chain & off-chain commitments
+- 🔁 Optional restaking reward sharing with underwriters/validators
+- 📈 Secondary trading support (ERC-20 or NFT standardized revenue tokens)
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📦 Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Frontend**: React + Tailwind CSS + Wagmi + RainbowKit
+- **Smart Contracts**: Solidity (Deployed on EVM-compatible chain)
+- **AVS Integration**: EigenLayer / Custom validator AVS
+- **Underwriting Engine**: Custom module using smart contracts + escrow
+- **Storage/Proof**: IPFS/zkProof (for document-backed tokenization)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🧱 Architecture Overview
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```mermaid
+graph TD;
+    A[Hotel Owner] -->|Revenue Commitment| B[Smart Contract];
+    B -->|Token Minting| C[Investors];
+    C -->|Capital Injection| B;
+    D[Underwriter] -->|Backs Risk| B;
+    E[AVS Node] -->|Validates Payment| B;
+    B -->|Monthly Payment| C;
+    B -->|Reward| D;
