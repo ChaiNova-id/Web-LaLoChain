@@ -17,10 +17,9 @@ import toast from "react-hot-toast";
 import { useModalStore } from "@/stores/modalStore";
 import { useWalletStore } from "@/stores/walletStore";
 import { useCreateProperty } from "@/hooks/api/useCreateProperty";
-import { useQueryClient } from "@tanstack/react-query";
+import { usePropertiesByWallet } from "@/hooks/api/usePropertiesByWallet";
 
 const ModalAddProperty = () => {
-  const queryClient = useQueryClient();
   const {
     setHotelName,
     setUsdcPrice,
@@ -35,6 +34,7 @@ const ModalAddProperty = () => {
   const { mutateAsync } = useCreateProperty();
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const { refetch } = usePropertiesByWallet(account, 1, 10);
 
   const form = useForm<AddPropertyFormData>({
     defaultValues: {
@@ -74,9 +74,7 @@ const ModalAddProperty = () => {
         property_id: nextHotelId || "",
       });
 
-      queryClient.invalidateQueries({
-        queryKey: ["properties", account, 1, 10],
-      });
+      await refetch();
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {
