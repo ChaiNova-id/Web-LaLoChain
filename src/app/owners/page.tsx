@@ -31,9 +31,15 @@ export default function PropertyDashboard() {
     []
   );
 
+  const [isFetching, setIsFetching] = useState<boolean>(true);
+
   useEffect(() => {
     if (!isLoading && properties?.data) {
-      fetchOnchainProperties(properties.data).then(setEnrichedProperties);
+      fetchOnchainProperties(properties.data)
+        .then(setEnrichedProperties)
+        .finally(() => {
+          setIsFetching(false);
+        });
     }
   }, [properties, isLoading]);
 
@@ -48,7 +54,7 @@ export default function PropertyDashboard() {
         {/* Search Bar */}
         <SearchBar />
         {/* Tabel */}
-        {isLoading ? (
+        {isLoading || isFetching ? (
           <div className="flex items-center justify-center h-96">
             <CircleNotch className="animate-spin" size={32} />
           </div>
