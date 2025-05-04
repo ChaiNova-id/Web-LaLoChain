@@ -3,7 +3,7 @@ import { Contract } from "ethers";
 import toast from "react-hot-toast";
 
 import { getContract } from "@/contracts/contracts";
-import { getterContract, txConfig } from "@/contracts/fetchLogic";
+import { getterContract } from "@/contracts/fetchLogic";
 import { useWalletStore } from "./walletStore";
 
 const hotelRegistryContract = getContract("LaLoHotelRegistry");
@@ -172,8 +172,7 @@ export const useHotelRegistryStore = create<HotelRegistryState>((set, get) => ({
           tokenAmount,
           usdcPrice,
           totalMonth,
-          auctionDuration * 86400,
-          txConfig
+          auctionDuration * 86400
         );
         console.log("Transaction hash:", tx.hash);
         await tx.wait();
