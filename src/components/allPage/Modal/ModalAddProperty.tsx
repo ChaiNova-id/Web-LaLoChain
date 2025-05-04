@@ -3,6 +3,7 @@ import {
   FormItem,
   FormLabel,
   FormControl,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -18,6 +19,7 @@ import { useModalStore } from "@/stores/modalStore";
 import { useWalletStore } from "@/stores/walletStore";
 import { useCreateProperty } from "@/hooks/api/useCreateProperty";
 import { useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 
 const ModalAddProperty = () => {
   const queryClient = useQueryClient();
@@ -35,6 +37,7 @@ const ModalAddProperty = () => {
   const { mutateAsync } = useCreateProperty();
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [revenueUploaded, setRevenueUploaded] = useState<number>(0);
 
   const form = useForm<AddPropertyFormData>({
     defaultValues: {
@@ -48,6 +51,37 @@ const ModalAddProperty = () => {
       auctionDuration: "",
     },
   });
+
+  const revenueUsd = form.watch("totalRevenue");
+
+  const handleFileUpload = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    // try {
+    // const response = await fetch("/api/verifDocument", {
+    //   method: "POST",
+    //   body: formData,
+    // });
+
+    await axios
+      .post("/api/verifDocument", formData)
+      .then((res) => {
+        const revenue = res.data.data.revenueUSD;
+        setRevenueUploaded(parseInt(revenue));
+        console.log(res); // Store the API response data in state
+        toast.success("File verified successfully!");
+      })
+      .catch((error) => {
+        // console.error("Error uploading file:", error);
+        // toast.error("Failed to verify document.");
+        console.error("Error verifying document:", error);
+        toast.error("Failed to verify document.");
+      });
+
+    // } catch (error) {
+    // }
+  };
 
   const handleSubmit = async (data: AddPropertyFormData) => {
     setHotelName(data.name);
@@ -92,6 +126,7 @@ const ModalAddProperty = () => {
       onSubmit={handleSubmit}
       addModalTitle="Add Property"
       addModalDescription="Fills out your property detail here. Click submit when you're done."
+      disableSubmit={isSubmitting || parseInt(revenueUsd) > revenueUploaded}
     >
       {/* Name */}
       <FormField
@@ -150,6 +185,11 @@ const ModalAddProperty = () => {
               <FormControl>
                 <Input placeholder="Enter total revenue" {...field} />
               </FormControl>
+              {/* {revenueUploaded > 0 && ( */}
+                <FormMessage>
+                  {`Revenue max: ${revenueUploaded} USDC`}
+                </FormMessage>
+              {/* )} */}
             </FormItem>
           )}
         />
@@ -179,6 +219,9 @@ const ModalAddProperty = () => {
                   onChange={(e) => {
                     const file = e.target.files?.[0];
                     field.onChange(file);
+                    if (file) {
+                      handleFileUpload(file); // Call the API when a file is uploaded
+                    }
                   }}
                 />
               </FormControl>

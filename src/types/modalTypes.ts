@@ -8,4 +8,5 @@ export interface AddPropertyFormProps<TFieldValues extends FieldValues> {
   addModalTitle?: string;
   addModalDescription?: string;
   isLoading?: boolean;
+  disableSubmit?: boolean;
 }
